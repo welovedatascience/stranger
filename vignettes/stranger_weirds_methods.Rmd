@@ -1,0 +1,406 @@
+---
+title: "stranger weirds methods"
+author: "WeLoveDataScience"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{stranger weirds methods}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,  
+                      fig.width=10 ,
+                      fig.height=7,
+                      out.width='100%',
+                      dpi=100)
+library(knitr)
+library(dplyr)
+library(ggplot2)
+library(stranger)
+library(tidyr)
+```
+
+In this vignette, we introduce every method available in `stranger` package. Note that methods may require extra packages.
+
+We will work with iris dataframe and use `lucky_odd` function.
+
+The list of cuttently available wrappers / weirds methods is listed below (one can use `weirds_list` function to obtain them).
+
+
+```{r, echo=FALSE}
+w=weirds_list()$detail
+kable(w[,c(1:4,6,9)],row.names = FALSE)
+```
+
+
+Following some helper function is introduced to simplify code apparing in each chunk.
+
+```{r}
+anoplot <- function(data,title=NULL){ 
+  g <- ggplot(data, aes(x=Sepal.Length,y=Sepal.Width,color=Species,size=flag_anomaly))+geom_point()+scale_size_discrete(range=c(1,3))
+  if (!is.null(title)) g <- g+ ggtitle(title)
+  return(g)
+  }
+```
+
+
+
+```{r, echo=FALSE, include=FALSE}
+infow <- function(method){ 
+  iw=get(paste("weird",method,sep="_"))(info=TRUE)
+  cat(paste0("*** weird method ",iw$weird_method))
+  cat(paste0("\n",iw$name, " based on function ",iw$foo, " [",iw$package,"]" ))
+  cat(paste0("\n","Metric: " ,iw$detail, " sorted in ", ifelse(iw$sort==1,"increasing","decreasing"), " order."))
+}
+```
+
+
+## abod
+
+```{r, echo=FALSE}
+infow("abod")
+```
+
+```{r, eval=TRUE}
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species", weird="abod") %>%
+  anoplot(title="abod - default parameters")
+ 
+```
+
+Default values for `abod` parameters:
+
+* k=10
+* ... additional parameters to be passed to `abod` (`method` and `n_sample_size` - see `?abod`.
+
+Extra parameters used in `stranger` for this weird: none.
+
+Default naming convention for generated metric based on _k_.
+
+__NOTE__: this method is not recommended for volumetric data.
+
+From `abod` help:
+</hr>
+Details
+
+Please note that 'knn' has to compute an euclidean distance matrix before computing abof.
+
+Value
+
+Returns angle-based outlier factor for each observation. A small abof respect the others would indicate presence of an outlier.
+</hr>
+
+
+## autoencode
+
+```{r, echo=FALSE}
+infow("autoencode")
+```
+
+
+```{r, eval=TRUE}
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species", weird="autoencode") %>%
+  anoplot(title="autoencode - default parameters")
+ 
+```
+
+Changing some parameters:
+
+```{r}
+iris %>%
+  lucky_odds(n.anom=6, analysis.drop="Species", weird="autoencode",nl=4, N.hidden=c(10,8),beta=6) %>%
+  anoplot(title="autoencode - change network layers strucure")
+```
+
+
+Default values for `autoencode` parameters:
+
+* nl=3
+* N.hidden=10
+* unit.type="tanh"
+* lambda=0.0002
+* beta=6
+* rho=0.001
+* epsilon=0.0001
+* optim.method="BFGS"
+* max.iterations=100
+* rescale.flag=TRUE
+* ...: user may pass other parameters to `autoencode` (rescaling.offset).
+
+Extra parameters used in `stranger` for this weird: none.
+
+Default naming convention for generated metric based on _nl_ and _n.hidden_.
+
+From `autoencode` package:
+</hr>
+An autoencoder neural network is an unsupervised learning algorithm that applies backpropagation to adjust its weights, attempting to learn to make its target values (outputs) to be equal to its inputs. In other words, it is trying to learn an approximation to the identity function, so as its output is similar to its input, for all training examples. With the sparsity constraint enforced (requiring that the average, over training set, activation of hidden units be small), such autoencoder automatically learns useful features of the unlabeled training data, which can be used for, e.g., data compression (with losses), or as features in deep belief networks.
+</hr>
+
+Usage here is to learn an autoencoder then apply it to same data and look at high residuals.
+
+## isofor
+
+
+
+
+```{r, echo=FALSE}
+infow("isofor")
+```
+
+```{r, eval=TRUE}
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species", weird="isofor") %>%
+  anoplot(title="isofor - default parameters")
+ 
+```
+
+Default values for `abod` parameters -- see `?iForest`:
+
+*  nt=100
+*  phi=min(nrow(data)-1,256)
+*  seed=1234
+*  multicore=FALSE
+*  replace_missing=TRUE
+*  sentinel=-9999999999
+
+Extra parameters used in `stranger` for this weird: none.
+
+Default naming convention for generated metric based on _nt_ and _phi_.
+
+__NOTE__: this method is not recommended for volumetric data.
+
+From `iForest` help:
+</hr>
+An Isolation Forest is an unsupervised anomaly detection algorithm. The requested number of trees, `nt`, are built completely at random on a subsample of size `phi`. At each node a random variable is selected. A random split is chosen from the range of that variable. A random sample of factor levels are chosen in the case the variable is a factor.
+
+Records from `X` are then filtered based on the split criterion and the tree building begins again on the left and right subsets of the data. Tree building terminates when the maximum depth of the tree is reached or there are 1 or fewer observations in the filtered subset.
+</hr>
+
+
+## kmeans
+
+
+```{r, echo=FALSE}
+infow("kmeans")
+```
+
+```{r, eval=TRUE}
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species", weird="kmeans") %>%
+  anoplot(title="kmeans - default parameters")
+ 
+```
+
+Default values for `kmeans` parameters -- see `?kmeans`:
+
+
+* type="means"
+* centers=4
+* algorithm="Hartigan-Wong"
+* iter.max=10
+* nstart= _centers_ parameter (4)
+
+Extra parameters used in `stranger` for this weird: none.
+
+Default naming convention for generated metric based on _type_ and _centers_.
+
+
+```{r}
+
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species",weird="kmeans",type="euclidian",centers=8) %>% 
+  anoplot(title="kmeans - euclidean - nclusters (centers)=8")
+
+
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species",weird="knn",simplify="median") %>% 
+  anoplot(title="knn - k=default (10), simplify=median")
+```
+
+## knn
+
+
+```{r, echo=FALSE}
+infow("knn")
+```
+
+```{r, eval=TRUE}
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species", weird="knn") %>%
+  anoplot(title="knn - default parameters")
+ 
+```
+
+Default values for `knn` parameters -- see `?knn`:
+
+*  k=10
+*  ... other parameters to be passed to `knn` (prob, algorihtm)
+
+Extra parameters used in `stranger` for this weird:
+
+* simplify="mean": name of a function to be used to aggregate neirest neighbours distances. User may use other existing base funcions (for instance  `median`) but can also use his own function -- name to be supplied as string.
+
+Default naming convention for generated metric based on _k_ and _simplify_.
+
+
+```{r}
+
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species",weird="knn",k=8) %>% 
+  anoplot(title="knn - k=8")
+
+
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species",weird="knn",simplify="median") %>% 
+  anoplot(title="knn - k=default (10), simplify=median")
+```
+
+
+## lof
+
+
+```{r, echo=FALSE}
+infow("lof")
+```
+
+```{r, eval=TRUE}
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species", weird="lof") %>%
+  anoplot(title="lof - default parameters")
+ 
+```
+
+Default values for `lof` parameters -- see `?lof`:
+
+*  k=10
+*  ... other parameters to be passed to `kNN` from `dbscan` package (search, bucketSize...).
+
+Extra parameters used in `stranger` for this weird: none.
+
+Default naming convention for generated metric based on _k_.
+
+
+```{r}
+
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species",weird="lof",k=8, search="linear") %>% 
+  anoplot(title="lof - k=8 - linear kNN")
+```
+ From `lof` help:
+ 
+ </hr>
+LOF compares the local density of an point to the local densities of its neighbors. Points that have a substantially lower density than their neighbors are considered outliers. A LOF score of approximately 1 indicates that density around the point is comparable to its neighbors. Scores significantly larger than 1 indicate outliers.
+</hr>
+
+
+## mahalanobis
+
+
+
+```{r, echo=FALSE}
+infow("mahalanobis")
+```
+
+```{r, eval=TRUE}
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species", weird="mahalanobis") %>%
+  anoplot(title="mahalanobis - default parameters")
+ 
+```
+No parameter available.
+
+Default naming convention: mahalanobis.
+
+
+## pcout
+
+
+
+
+```{r, echo=FALSE}
+infow("pcout")
+```
+
+```{r, eval=TRUE}
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species", weird="pcout") %>%
+  anoplot(title="pcout - default parameters")
+ 
+```
+
+Default values for `pcout` parameters -- see `?pcout`:
+
+* explvar=0.99
+* crit.M1=1/3
+* crit.M2=1/4
+* crit.c2=0.99
+* crit.cs=0.25
+* outbound=0.25
+* ...  not used here.
+
+Extra parameters used in `stranger` for this weird: none.
+
+Default naming convention for generated metric based on _explvar_.
+
+
+```{r}
+
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species",weird="pcout", explvar=0.8, crit.Ml=1, crit.cl=3) %>% 
+  anoplot(title="pcout - custom values")
+```
+ From `pcout` help:
+ 
+ </hr>
+Based on the robustly sphered data, semi-robust principal components are computed which are needed for determining distances for each observation. Separate weights for location and scatter outliers are computed based on these distances. The combined weights are used for outlier identification.
+</hr>
+
+
+## randomforest
+
+
+
+
+```{r, echo=FALSE}
+infow("randomforest")
+```
+
+```{r, eval=TRUE}
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species", weird="randomforest") %>%
+  anoplot(title="randomforest - default parameters")
+ 
+```
+
+Default values for `randomforest` parameters -- see `?randomforest`:
+
+
+*  ntree=500
+* mtry=sqrt(ncol(data))
+* replace=TRUE
+* ...  other parameters to be used in `randomForest`
+
+Extra parameters used in `stranger` for this weird: none.
+
+Default naming convention for generated metric based on _ntree_ and _mtry_.
+
+
+```{r}
+
+iris %>% 
+  lucky_odds(n.anom=6, analysis.drop="Species",weird="randomforest", explvar=0.8, ntree=10,mtry=2) %>% 
+  anoplot(title="randomforest - custom values")
+```
+
+
+## To go further
+
+Logical next step is to look at how to work with _weirds_ methods: manipulate, work with metrics (aggregation and stacking), derive anomalies. For this, read vignette [Working with weirds](./articles/working_with_weirds.html)
+
+
+
+

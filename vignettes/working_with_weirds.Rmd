@@ -1,0 +1,150 @@
+---
+title: "working with weirds"
+author: "WeLoveDataScience"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{stranger for the impatient}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,  
+                      fig.width=10 ,
+                      fig.height=7,
+                      out.width='100%',
+                      dpi=100)
+library(knitr)
+library(dplyr)
+library(ggplot2)
+suppressMessages(library(stranger)) 
+library(tidyr)
+```
+
+
+
+# Anomalies manual selection
+
+For some metrics, litterature recommends some cutpoints (2 for `lof` for instance).
+
+There is a way to derive anomalies from this given cutpoint by filtering a stranger or a singularize object and convert to anomalies the set of retained records. 
+
+Filtering can be done either with usual `[` or `dplyr` `select`.
+
+Assumed `dbscan` package is installed, one can for instance use `lof` weird, use 2 as cutpoint and derive an anomaly object with [`as.anomalies`](./../references/as.anomalies.html).
+
+
+```{r}
+iris %>% select(-Species) %>%
+  crazyfy() %>%
+  strange(weird="lof") %>%
+  singularize() -> s
+anom <- filter(s,lof_k_10>2) %>% as.anomalies()
+```
+
+__NOTE__ our current implementation of `select` is not pipeable; we are still trying to ingest Hadley Wickham litterature on programming with `dyplyr`...
+
+Anomaly objects are simple vectors with attributes; once can then access the first anomaly and display it with:
+
+```{r}
+plot(s,type="neighbours", score="lof_k_10",anomaly_id=anom[1])
+```
+
+# Using a tuneGrid
+
+`stranger` package is a wrapper around several methods. Problem thus arrives on the _choice_ of the method... We will see later in this vignette how to work with several metrics and in particular the stacking.
+
+But world is really complex and even for one chosen method, leyt say `knn` _weird_, user has to pick some parameters...
+
+Here comes the parameter `tuneGrid` (name borrowed from `caret`) that allow to use one _weird_ with different sets of parameters in the same call.
+
+Let's prepare a matrix of parameters:
+
+```{r}
+tg <- expand.grid(k=c(5,10,20),simplify=c("mean","median"),stringsAsFactors=FALSE)
+tg
+```
+
+We thus have 6 possible combinations
+
+```{r}
+(anoms.all <-  iris %>% select(-Species) %>%
+  crazyfy() %>% strange(weird="knn",tuneGrid=tg))
+```
+
+__NOTES__
+
+* `stranger` naming conventions do not necessary involve all parameters, we though ensure unique names and store parameters values as attributes (metadata) for every metric.
+* Currently, only parameters exposed in _weird_ method are allowed in tuning grid. User can still invoke methods several times with different values for other parameters and merge results as seen in next section or use `stranger`.
+
+
+```{r}
+tg = data.frame(k=c(5,5:8))
+(anoms <-  iris %>% select(-Species) %>%
+  crazyfy() %>% strange(weird="knn",tuneGrid=tg,algorithm=c("cover_tree")))
+(meta  <- get_info(anoms))
+meta[,"parameters"]
+```
+
+
+# Merging stranger objects
+
+So you have decided to go for and try two different methods. Let say _knn_ and _autoencode_.
+
+First, we can create two object containg assciatdd metrics.
+
+```{r}
+data <- iris %>% select(-Species) %>% crazyfy()
+m1 <- strange(data, weird="knn")
+m2 <- strange(data, weird="autoencode")
+```
+
+For convenience and further exploitation, a `merge` method is at your disposal to gather the two corresponding metrics in  a single object:
+
+```{r}
+(metrics <- merge(m1,m2))
+```
+
+# Invoke several weirds at once (stranger) 
+
+You are not sure yet about the metric you want to use. Or you would like to test many, with plenty of different values for the parameters? `stranger` is for you. This function is similar to `caretList` in `caretEnsemble` package.
+
+With its first parameter _methodList_ you can supply many methods that will be invoked with their default parameter. 
+
+If you want to use your own values or use a tuneGrid for a given method, you will have to create  _weird_ objects using `weird` function and pass a list of such  _weirds_ object to the parameter _tuneList_.
+
+
+Following call will for instance:
+* fit a knn _weird_ with default values (taken from _methodList_)
+* fit a autoencode _weird_ with default values
+* also fit a knn but with _k_ set to 20 (not recommended for iris data having 50 observations)
+
+```{r}
+s3=stranger(data,
+    methodList=c("knn","autoencode"),
+    tuneList=list(weird(method="knn",k=20)))
+```
+
+
+# does not work (autoencode tuneGrid)
+ss=stranger(data,
+methodList=c("lof"),
+tuneList=list(
+weird(method="knn",
+tuneGrid=data.frame(k=c(3,5,10,15)))
+, weird(method="autoencode",colname="auto_2hidden",nl=4,N.hidden=c(6,15))
+, weird(method="autoencode",
+colname="auto",
+tuneGrid=data.frame(nl=3,N.hidden=c(6,15,30)))))
+
+anom <- ss %>% singularize() %>%  get_anomalies(nmin=6,nmax=6)
+
+anom %>%   fortify(data=iris,colname="anomaly") %>%
+ggplot(aes(x=Sepal.Length,y=Sepal.Width,color=Species,size=anomaly))+geom_point()+scale_size_discrete(range=c(1,3))
+
+
+# Normalize & stack metrics
+
+
+

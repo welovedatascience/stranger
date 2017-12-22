@@ -1,0 +1,27 @@
+Package: stranger
+Type: Package
+Title: Simple Toolkit in R for Anomalies Get, Explain and Report
+Version: 0.3
+Authors@R: c(
+    person("Eric", "Lecoutre", email = "eric.lecoutre@welovedatascience.com", role = c("aut","cre")),
+    person("Sven", "Wauters", email = "sven.wauters@welovedatascience.com", role = "aut"))
+Maintainer: Eric Lecoutre <eric.lecoutre@welovedatascience.com>
+Description: stranger is a framework for unsupervised anomalies detection that simplifies the user experience because the one does not need to be concerned with the many packages and functions that are required. It acts as a wrapper around existing packages ("a la Caret") and provides in a clean and uniform toolkit evaluation/explain/report routines.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Suggests: knitr,
+          rmarkdown,
+          prettydoc,
+          dtplyr,
+          ggplot2,
+          tidyr,
+          testthat,
+          FNN,
+          dbscan,
+          autoencoder
+VignetteBuilder: knitr
+Imports: assertthat  (>= 0.2)
+Depends: data.table,
+         dplyr (>= 0.7.3)
