@@ -110,8 +110,10 @@ Note: always print (cat)  information, store the content if you want to programm
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='no'>info</span> <span class='kw'>&lt;-</span>  <span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>Species</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='crazyfy.html'>crazyfy</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='strange.html'>stranger</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>singularize</span>() <span class='kw'>%&gt;%</span> <span class='fu'>get_info</span>()</div><div class='output co'>#&gt; <span class='error'>Error in `:=`(g, .GRP): Check that is.data.table(DT) == TRUE. Otherwise, := and `:=`(...) are defined for use in j, once only and in particular ways. See help(":=").</span></div></pre>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>library</span>(<span class='no'>dplyr</span>)
+<span class='no'>info</span> <span class='kw'>&lt;-</span>  <span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>Species</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='crazyfy.html'>crazyfy</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='strange.html'>stranger</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>singularize</span>() <span class='kw'>%&gt;%</span> <span class='fu'>get_info</span>()
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

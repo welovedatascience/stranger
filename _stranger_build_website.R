@@ -21,7 +21,7 @@ my_build_site <- function (pkg = ".", path = "docs", examples = TRUE, run_dont_r
 
 pkg <- pkgdown:::as_pkgdown(".")
 # relpath=pkgdown:::rel_path(pkg$path
-my_build_site(examples=TRUE,run_dont_run=TRUE)
+my_build_site(examples=TRUE,run_dont_run=FALSE)
 # dir.create(file.path(relpath,"docs","articles"),showWarnings=FALSE)
 pkgdown:::build_articles(".", path = "docs/articles", depth = 1L)
 # pkgdown:::preview_site(pkgdown:::rel_path("docs", relpath))

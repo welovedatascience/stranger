@@ -109,16 +109,11 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='no'>info</span> <span class='kw'>&lt;-</span>  <span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>Species</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='crazyfy.html'>crazyfy</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='strange.html'>stranger</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>get_info</span>()</div><div class='output co'>#&gt; <span class='error'>Error in `:=`(g, .GRP): Check that is.data.table(DT) == TRUE. Otherwise, := and `:=`(...) are defined for use in j, once only and in particular ways. See help(":=").</span></div><div class='input'><span class='no'>info</span></div><div class='output co'>#&gt;               weird_method           name  package  package.source foo       
-#&gt; knn_k_10_mean "k-Nearest Neighbour"  "knn" "FNN"    "CRAN"         "knn.dist"
-#&gt; lof_k_10      "Local Outlier Factor" "lof" "dbscan" "CRAN"         "lof"     
-#&gt;               type       sort detail                                          
-#&gt; knn_k_10_mean "distance" -1   "Positive numeric value (distance)"             
-#&gt; lof_k_10      "lofactor" -1   "Positive numeric value (local outlier factors)"
-#&gt;               parameters normalizationFunction colname        
-#&gt; knn_k_10_mean List,2     ?                     "knn_k_10_mean"
-#&gt; lof_k_10      List,1     ?                     "lof_k_10"     </div></pre>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>library</span>(<span class='no'>dplyr</span>)
+<span class='no'>info</span> <span class='kw'>&lt;-</span>  <span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>Species</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='crazyfy.html'>crazyfy</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='strange.html'>stranger</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>get_info</span>()
+<span class='no'>info</span>
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

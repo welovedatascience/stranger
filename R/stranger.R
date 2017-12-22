@@ -25,10 +25,12 @@
 #' @aliases stranger
 #'
 #' @examples
+#' \dontrun{
 #' library(stranger)
 #' data(iris)
 #' crazydata <- crazyfy(iris[,1:4])
 #' curious <- strange(crazydata, method="knn")
+#' }
 #' @export
 strange <- function(data, weird="knn",tuneGrid=NULL,colname=NULL,...){
 

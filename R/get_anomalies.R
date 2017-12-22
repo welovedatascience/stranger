@@ -13,7 +13,7 @@
 #' @param ... additional parameters to pass
 #'to singularize (if called on a non-singularized object)
 #'
-#'Anoamlies selection is performed using one summary metric. This summary metrics is assumed to stacked some base metrics - may be only one!. Stacking is performed after standardisarion, being possible with two approaches: normalisation (\code{method.use} = "norm") or ranking (\code{method.use} = "rank"). See \link{\code{singularize}} function.
+#'Anoamlies selection is performed using one summary metric. This summary metrics is assumed to stacked some base metrics - may be only one!. Stacking is performed after standardisation, being possible with two approaches: normalisation (\code{method.use} = "norm") or ranking (\code{method.use} = "rank"). See \link{\code{singularize}} function.
 #'
 #'Three parameters are used together to define anomalies: rank.prop is firsu used to filter on top x% anomalies then one applies on top of this criteria conditions on a minimal (\code{nmin}) and maximal (\code{nmax}) number of anomalies to be provided.
 #'
