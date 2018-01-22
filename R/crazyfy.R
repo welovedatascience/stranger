@@ -30,7 +30,6 @@ crazyfy <- function
 #' library(stranger)
 #' data(iris)
 #' crazy <- crazyfy(iris[,1:4])
-#' @export
 #---------------------------------------------------------------------------------
 (
   data,
@@ -43,8 +42,8 @@ crazyfy <- function
 #---------------------------------------------------------------------------------
   {
 
-  stopifnot(require("data.table"))
-  assertthat::assert_that(require("data.table"),msg="data.table required for this function")
+  # stopifnot(require("data.table"))
+  # assertthat::assert_that(require("data.table"),msg="data.table required for this function")
 
   ## Checks on parameters
   NA.method=match.arg(NA.method,c("mean","value"))

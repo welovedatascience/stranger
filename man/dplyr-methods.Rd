@@ -9,6 +9,11 @@
 
 \method{filter}{singular}(.data, ...)
 }
+\arguments{
+\item{.data}{object (class: sranger or singular)}
+
+\item{\dots}{filter definition}
+}
 \description{
-dplyr methods
+Methods to use with dplyr filter function
 }

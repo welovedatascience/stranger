@@ -1,5 +1,7 @@
 
-#' @export
+
+
+
 "[.singular" <- function (x,...)
 {
   cl <- class(x)
@@ -10,7 +12,7 @@
   return(out)
 }
 
-#' @export
+
 "[.stranger" <-function (x,...)
   {
   cl <- class(x)
@@ -21,8 +23,8 @@
   return(out)
 }
 
-#' @export
-"[<-.singular" <-function (x,...)
+
+"[<-.singular" <-function (x,i,j,value)
 {
   cl <- class(x)
   # print(cl)
@@ -32,8 +34,8 @@
   return(out)
 }
 
-#' @export
-"[<-.stranger" <-function (x,...)
+
+"[<-.stranger" <-function (x,i,j,value)
 {
   cl <- class(x)
   class(x) <- class(x)[!class(x) %in% c("singular","stranger")]

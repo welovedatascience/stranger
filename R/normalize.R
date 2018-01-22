@@ -9,8 +9,6 @@
 
 # WORKFLOW -- UNEXPORTED --------------------------------------------------
 
-
-#' @export
 normalize <- function(x){
   assertthat::assert_that(inherits(x,"stranger"),msg="x must be a stranger object.")
   methods <- sapply(x,function(col)attr(col,"type"))

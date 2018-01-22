@@ -8,8 +8,7 @@
 #'  for instance using a cutpoint of 2 for 'abod' method.
 #' @param x stranger/singular (pre-filered) object
 #' @return object of class anomalies -- see also \code{\link{get_anomalies}}.
-#' @export
-as.anomalies <- function(x,...){
+as.anomalies <- function(x){
   assertthat::assert_that(inherits(x,"stranger"),msg="x must be a stranger object derived from strange or singularize")
   outliers <- x[[".id"]]
   attr(outliers,"meta") <- attr(x,"meta")

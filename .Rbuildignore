@@ -3,3 +3,8 @@
 ^\docs$
 ^\misc$
 ^docs$
+cran-comments.md
+^\data\Readme.html  
+_stranger_build_website.R
+README.Rmd
+^img$

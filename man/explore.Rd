@@ -9,6 +9,8 @@ explore(data, type = "histogram", keep = NULL, drop = NULL, ...)
 \arguments{
 \item{data}{is the data frame containing the observations. Each row represents an observation and each variable is stored in one column.}
 
+\item{type}{one of "histogram", "correlation"}
+
 \item{keep}{character vector: names of columns to keep (filter)}
 
 \item{drop}{character vector: names of columns to drop (filter)}

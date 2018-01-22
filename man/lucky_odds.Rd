@@ -13,21 +13,23 @@ lucky_odds(data, n.anom = 5, ..., analysis.drop = NULL,
 
 \item{n.anom}{Number of anomaly candidate records to flags.}
 
+\item{\dots}{Additional parameters to be passed to weird method (\code{analysis.method}).}
+
 \item{analysis.drop}{Character - set of variables to be removed from analysis (metrics computations by weird).}
 
 \item{analysis.keep}{Character - set of variables to be kept for analyis  (metrics computations by weird).}
 
-\item{stack}{Stacking metric passed to \code{\link{gest_strangest}}.}
+\item{weird}{weird method to use for metric computation}
 
-\item{stack.method}{Stacking selection method passed to  \code{\link{gest_strangest}}.}
+\item{stack}{Stacking metric passed to \code{\link{get_anomalies}}.}
 
-\item{\dots{}}{Additional parameters to be passed to weird method (\code{analysis.method}).}
+\item{stack.method}{Stacking selection method passed to  \code{\link{get_anomalies}}.}
 }
 \description{
 \code{lucky_odds} is basically a wrapper around the process: \code{\link{add_id}} --> \code{\link{crazyfy}}
 --> \code{\link{strange}} (weird method with set of parameters) --> \code{\link{singularize}}
  (default parameters: all methods)
---> \code{\link{get_strangest}} (flag top \emph{n.anom} anomalies) --> \code{\link{fortify}} to enrich source data.
+--> \code{\link{get_anomalies}} (flag top \emph{n.anom} anomalies) --> \code{\link{fortify}} to enrich source data.
 By calling \code{lucky_odds}, analyst gets back source data with an additional column flagging some records.
 Though obviously simplifying the analysis process, not all options are available and intermediate objects
 are not available for further analysis.
@@ -35,7 +37,7 @@ are not available for further analysis.
 \section{Selecting variables}{
 
 If your source data contains variables you don't want to use in metrics computations - weird method: knnw, autoencode...,
-then you have to first select analysis variables. You can thos this use either \code{analysis.keep} OR \code{analyisis.drop}.
+then you have to first select analysis variables. You can thos this use either \code{analysis.keep} OR \code{analysis.drop}.
 Those two parameters are mutually exclusive.
 library(stranger)
 data(iris)

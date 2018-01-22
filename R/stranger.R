@@ -23,6 +23,7 @@
 #' @return stranger object -- that is a data.table with attributes and overloaded with class stranger
 #'
 #' @aliases stranger
+#' @rdname stranger
 #'
 #' @examples
 #' \dontrun{
@@ -31,7 +32,6 @@
 #' crazydata <- crazyfy(iris[,1:4])
 #' curious <- strange(crazydata, method="knn")
 #' }
-#' @export
 strange <- function(data, weird="knn",tuneGrid=NULL,colname=NULL,...){
 
   # equivalent to caret "train"
@@ -111,7 +111,6 @@ tuneCheck <- function(x)
   return(x)
 }
 
-#' @export
 stranger <- function(data,methodList=c("knn","lof"), tuneList=NULL,...){
   ## inspired from caretEnsemble:: caretList
   ## equivalent to caretList or combining several weirds methods with merge

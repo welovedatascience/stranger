@@ -4,13 +4,10 @@
 #' Today, 3 plots are implemented;(1) a small histogram for each features, (2) a correlation matrix and
 #' (3) a 2-Dimension Hexbin Frequency.
 #'
-#' @import ggplot2
-#' @import tidyr
-#' @import dplyr
-#'
 #' @param data is the data frame containing the observations. Each row represents an observation and each variable is stored in one column.
 #' @param keep character vector: names of columns to keep (filter)
 #' @param drop character vector: names of columns to drop (filter)
+#' @param type one of "histogram", "correlation"
 #' @param \dots is additional arguments to be passed to internal
 #'    functions. Currently only col.fill and bins for histograms.
 #'
@@ -20,11 +17,10 @@
 #' explore(BudgetUK, type ="cor",drop="children")
 #' }
 #'
-#' @export
 explore <- function(data, type="histogram",keep=NULL,drop=NULL,...){
   type <- match.arg(type, c("histogram","correlation"))
   ## Load library and data
-  Vectorize(require)(package = c("ggplot2", "tidyr", "dplyr"),character.only = TRUE)
+  Vectorize(require)(package = c("dplyr"),character.only = TRUE)
   ## Check basic required data properties
   if(!is.data.frame(data)){
     data <- as.data.frame(data)
@@ -46,7 +42,7 @@ explore <- function(data, type="histogram",keep=NULL,drop=NULL,...){
 }
 
 explore_histogram <- function(data,col.fill="steelblue",bins=50,...){
-  assertthat::assert_that(require(ggplot2),msg="ggplot2 package required.")
+  #assertthat::assert_that(require(ggplot2),msg="ggplot2 package required.")
   ## Take colomns name of numeric versus factor features
 
   cn <- colnames(data)
@@ -161,7 +157,8 @@ explore_correlation <- function(data,...){
 # From: http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_%28ggplot2%29/
 
 multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
-  library(grid)
+  # library(grid)
+  requireNamespace(grid)
 
   # Make a list from the ... arguments and plotlist
   plots <- c(list(...), plotlist)

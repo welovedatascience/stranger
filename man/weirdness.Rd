@@ -47,6 +47,8 @@ information added to reflect values used for some key parameters.}
 to nearest k points.}
 
 \item{\dots}{additional parameters to be passed to weird method, for instance k for knn}
+
+\item{type}{one of "means" or "euclidian". See \code{kmeans} from \code{stats} package.}
 }
 \description{
 Those wrapper are mainly used internally by other functions and the

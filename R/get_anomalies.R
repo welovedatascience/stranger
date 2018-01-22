@@ -1,21 +1,20 @@
-
 #' Retrieve anomalies
 #'
 #' Based on a summary normalized/stacked metric, retrieve top anomalies.
 #'
 #' @param x stranger object (before of after singularize)
-#' @param rank.prop: proportion of records to be considered as anomalies
-#' @param nmin: constraint - minimum number of anomalies
-#' @param nmax: constrait - maximum number of anomalies
+#' @param rank.prop proportion of records to be considered as anomalies
+#' @param nmin constraint - minimum number of anomalies
+#' @param nmax constrait - maximum number of anomalies
 #' @param stack.use One of c("max","avg","min","damavg", "pruavg")) - must have been requestedwhen invoking `singularize` (done by default).
 #' @param method.use One of c("norm","rank") - must have been requestedwhen invoking `singularize` (done by default).
 #' @param verbose logical: provide some information.
 #' @param ... additional parameters to pass
 #'to singularize (if called on a non-singularized object)
 #'
-#'Anoamlies selection is performed using one summary metric. This summary metrics is assumed to stacked some base metrics - may be only one!. Stacking is performed after standardisation, being possible with two approaches: normalisation (\code{method.use} = "norm") or ranking (\code{method.use} = "rank"). See \link{\code{singularize}} function.
+#'Anomalies selection is performed using one summary metric. This summary metrics is assumed to stacked some base metrics - may be only one!. Stacking is performed after standardisation, being possible with two approaches: normalisation (\code{method.use} = "norm") or ranking (\code{method.use} = "rank"). See \code{\link{singularize}} function.
 #'
-#'Three parameters are used together to define anomalies: rank.prop is firsu used to filter on top x% anomalies then one applies on top of this criteria conditions on a minimal (\code{nmin}) and maximal (\code{nmax}) number of anomalies to be provided.
+#'Three parameters are used together to define anomalies: rank.prop is firsu used to filter on top x\% anomalies then one applies on top of this criteria conditions on a minimal (\code{nmin}) and maximal (\code{nmax}) number of anomalies to be provided.
 #'
 #'@examples
 #' data <- crazyfy(iris[,1:4])
@@ -29,7 +28,6 @@
 #'  anom2 <- ss %>% get_anomalies(nmin=2, nmax=4)
 #'  ss %>% plot(type="n",score="N_anom_norm_avg",anomaly_id=anom2[1])
 #' }
-#' @export
 get_anomalies <- function(x,rank.prop=0.05, nmin=10, nmax=300,
                           stack.use="avg",
                           method.use="norm",verbose=TRUE,...){

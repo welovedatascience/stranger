@@ -106,7 +106,7 @@ investigate_neighbours <- function(data, id, score, anomaly_id, k = NULL, ...){
 
   if (is.null(k)) k <- min(1000,nrow(data)-1)
   ## Load library and data
-  Vectorize(require)(package = c("ggplot2", "FNN","tidyr"),character.only = TRUE)
+  Vectorize(require)(package = c("FNN","tidyr"),character.only = TRUE)
 
   if (inherits(data,"data.table")){ data=as.data.frame(data) }
 
@@ -147,7 +147,7 @@ investigate_neighbours <- function(data, id, score, anomaly_id, k = NULL, ...){
 
 investigate_feature_importance <- function(data, id, score, anomaly_id, num.trees=NULL, ...){
   if (is.null(num.trees)) num.trees <- min(300,2*sqrt(ncol(data)))
-  Vectorize(require)(package = c("ranger","ggplot2"),character.only = TRUE)
+  Vectorize(require)(package = c("ranger"),character.only = TRUE)
 
   data$anomalyRF <- as.factor(data[[id]] %in% anomaly_id)
   remove=c(score,id)
@@ -182,7 +182,7 @@ investigate_feature_importance <- function(data, id, score, anomaly_id, num.tree
 #   if (is.null(k)) k <- min(1000,nrow(data)-1)
 #
 #   # Load library and data
-#   Vectorize(require)(package = c("ggplot2", "FNN"),character.only = TRUE)
+#   Vectorize(require)(package = c("FNN"),character.only = TRUE)
 #
 #   ## Filter data to keep only the K neighbours
 #   knn <- get.knn(data[, !colnames(data) %in% c(id,score)], k, algorithm="cover_tree")
@@ -246,7 +246,7 @@ investigate_feature_importance <- function(data, id, score, anomaly_id, num.tree
 investigate_scores_decline <- function(data, id, score, anomaly_id, k = NULL, n_label = 15, ...){
   if (is.null(k)) k <- min(1000,nrow(data)-1)
   #Load library and data
-  Vectorize(require)(package = c("ggplot2", "FNN"),character.only = TRUE)
+  Vectorize(require)(package = c("FNN"),character.only = TRUE)
 
     # step 0: Filter data to keep only the K-neighbours
   knn <- suppressMessages(get.knn(data[, !colnames(data) %in% c(id,score)], k, algorithm="cover_tree"))
@@ -309,7 +309,7 @@ investigate_regression_tree <- function(data, id, score, anomaly_id, k=NULL, ...
        fancy = FALSE)
 }
 
-# Plot methods ----------------
+
 
 #' Data visualizations of anomaly score locally around a specific data point
 #' @details
@@ -326,7 +326,7 @@ investigate_regression_tree <- function(data, id, score, anomaly_id, k=NULL, ...
 #' The shape indicates how extrem and how frequent is the anomaly score of a speicif record amoung its neighbours.
 #' (5) A Regression tree, named "regression_tree", showing the roots to high score around a specific record.
 #'
-#' @param data is either of class dataframe, stranger or anomaly. It contains the observations; each row represents an observation
+#' @param x is either of class dataframe, stranger or anomaly. It contains the observations; each row represents an observation
 #'  and each variable is stored in one column. It must have at least one column with IDs and one column with the anomaly
 #'  score for each ID.
 #' @param type is the name of the visualization;
@@ -342,36 +342,27 @@ investigate_regression_tree <- function(data, id, score, anomaly_id, k=NULL, ...
 #' @param id is the colname with records IDs
 #' @param score is the colname which contains the anomaly score
 #' @param anomaly_id is the record ID you want to investigate
-#' @param check logical indicating if object data should be checked for validity. The default is TRUE, this check is not necessary
+#' @param \dots Additional parameters to pass 
+#'
+#' @details 
+#' Extra parameters that can be used in \dots:
+#' \itemize{
+#' \item check logical indicating if object data should be checked for validity. The default is TRUE, this check is not necessary
 #' when data is known to be valid such as when it is the direct result of stranger().
-#' @param keep character vector: names of columns to keep (filter)
-#' @param drop character vector: names of columns to drop (filter)
-#' @param n.cluster is the number of cluster groups to emphasis.
+#' \item  keep character vector: names of columns to keep (filter)
+#' \item  drop character vector: names of columns to drop (filter)
+#' \item  n.cluster is the number of cluster groups to emphasis.
 #' This parameter must only be specified with type ="cluster".
-#' @param n.anom is the number of top anomalies to be considered.
+#' \item  n.anom is the number of top anomalies to be considered.
 #' This parameter must only be specified with type ="cluster".
-#' @param k is the number of neighbours to be considered. This parameter must always be specified,
+#' \item  k is the number of neighbours to be considered. This parameter must always be specified,
 #' except with type = "cluster".
-#' @param n_label specifies the number of data point to be labelled in the plot.
+#' \item  n_label specifies the number of data point to be labelled in the plot.
 #' This parameter must only be specified with type ="scores_decline".
-#'
-#' @return A plot
-#'
-#' @examples
-#' \dontrun{
-#' data(iris)
-#' library(dplyr)
-#' data <- iris %>% select(-Species) %>% crazyfy()
-#' anom1<- data %>% strange()
-#' result <- fortify(anom1)
-#' investigate(result, type="cluster", id = ".id", score = "knn_k_10_mean", anomaly_id = 10, n.cluster = 4, n.anom = 50)
-#' investigate(result, type="neighbours", id = ".id", score = "knn_k_10_mean", anomaly_id = 10, k = 200)
-#' investigate(result, type="feature_importance", id = ".id", score = "knn_k_10_mean", anomaly_id = 10, k = 100)
-#' investigate(result, type="scores_decline", id = ".id", score = "knn_k_10_mean", anomaly_id = 10, k = 50, n_label = 10)
-#' investigate(result, type="regression_tree", id = ".id", score = "knn_k_10_mean", anomaly_id = 10, k = 1000)
 #' }
+#' 
+#' @return A plot
 #' @rdname plot
-#' @export
 plot.stranger <- function(x,
                           type="cluster",
                           id = ".id",
@@ -386,7 +377,6 @@ plot.stranger <- function(x,
 
 
 #' @rdname plot
-#' @export
 plot.fortifiedanomaly <- function(x,
                           type="feature_importance",
                           id = ".id",
@@ -463,7 +453,6 @@ data <- as.data.frame(x)
 
 
 #' @rdname plot
-#' @export
 plot.anomalies <- function(x,
                                   type="feature_importance",
                                   id = ".id",
@@ -477,7 +466,6 @@ plot.anomalies <- function(x,
 
 
 #' @rdname plot
-#' @export
 plot.singular <- function(x,
                           type="cluster",
                           id = ".id",

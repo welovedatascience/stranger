@@ -4,7 +4,7 @@
 \alias{as.anomalies}
 \title{Create a class anomalies from a (pre-filterd) stranger/singular}
 \usage{
-as.anomalies(x, ...)
+as.anomalies(x)
 }
 \arguments{
 \item{x}{stranger/singular (pre-filered) object}

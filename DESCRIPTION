@@ -1,7 +1,7 @@
 Package: stranger
 Type: Package
 Title: Simple Toolkit in R for Anomalies Get, Explain and Report
-Version: 0.3
+Version: 0.3.1
 Authors@R: c(
     person("Eric", "Lecoutre", email = "eric.lecoutre@welovedatascience.com", role = c("aut","cre")),
     person("Sven", "Wauters", email = "sven.wauters@welovedatascience.com", role = "aut"))
@@ -11,17 +11,21 @@ License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
+URL: https://welovedatascience.github.io/stranger, https://github.com/welovedatascience/stranger
 Suggests: knitr,
           rmarkdown,
           prettydoc,
           dtplyr,
-          ggplot2,
-          tidyr,
-          testthat,
+         testthat,
           FNN,
           dbscan,
-          autoencoder
+          autoencoder,
+          rpart
 VignetteBuilder: knitr
-Imports: assertthat  (>= 0.2)
-Depends: data.table,
+Imports: assertthat  (>= 0.2) ,
+         ggplot2,
+         tidyr,
+         grid,
+         methods
+Depends: R (>= 2.10), data.table,
          dplyr (>= 0.7.3)

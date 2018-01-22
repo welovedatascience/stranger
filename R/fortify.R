@@ -14,7 +14,6 @@
 #' @param colname character - name of the column to be created for the flag (default: flag_anomaly).
 #' @param \dots fortify generic parameter -- not used for stranger objects.
 #'
-#' @export
 #' @rdname fortify_stranger
 fortify.anomalies  <- function(x,data=NULL,id=NULL,colname="flag_anomaly",...){
   # if is.null(data) take from attributes/metadata
@@ -54,7 +53,6 @@ fortify.anomalies  <- function(x,data=NULL,id=NULL,colname="flag_anomaly",...){
 }
 
 
-#' @export
 #' @param all.x merge parameter
 #' @param all.y merge parameter
 #' @rdname fortify_stranger
@@ -103,7 +101,6 @@ fortify.stranger <- function(x,data=NULL,id=NULL,all.x=TRUE, all.y=FALSE,...){
   return(out)
 }
 
-#' @export
 #' @rdname fortify_stranger
 fortify.singular <- function(x,data=NULL,id=NULL,all.x=TRUE, all.y=FALSE,...){
   if (is.null(data)) {

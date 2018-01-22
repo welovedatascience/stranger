@@ -10,6 +10,12 @@ get_anomalies(x, rank.prop = 0.05, nmin = 10, nmax = 300,
 \arguments{
 \item{x}{stranger object (before of after singularize)}
 
+\item{rank.prop}{proportion of records to be considered as anomalies}
+
+\item{nmin}{constraint - minimum number of anomalies}
+
+\item{nmax}{constrait - maximum number of anomalies}
+
 \item{stack.use}{One of c("max","avg","min","damavg", "pruavg")) - must have been requestedwhen invoking `singularize` (done by default).}
 
 \item{method.use}{One of c("norm","rank") - must have been requestedwhen invoking `singularize` (done by default).}
@@ -19,15 +25,9 @@ get_anomalies(x, rank.prop = 0.05, nmin = 10, nmax = 300,
 \item{...}{additional parameters to pass
 to singularize (if called on a non-singularized object)
 
-Anoamlies selection is performed using one summary metric. This summary metrics is assumed to stacked some base metrics - may be only one!. Stacking is performed after standardisarion, being possible with two approaches: normalisation (\code{method.use} = "norm") or ranking (\code{method.use} = "rank"). See \link{\code{singularize}} function.
+Anomalies selection is performed using one summary metric. This summary metrics is assumed to stacked some base metrics - may be only one!. Stacking is performed after standardisation, being possible with two approaches: normalisation (\code{method.use} = "norm") or ranking (\code{method.use} = "rank"). See \code{\link{singularize}} function.
 
-Three parameters are used together to define anomalies: rank.prop is firsu used to filter on top x% anomalies then one applies on top of this criteria conditions on a minimal (\code{nmin}) and maximal (\code{nmax}) number of anomalies to be provided.}
-
-\item{rank.prop:}{proportion of records to be considered as anomalies}
-
-\item{nmin:}{constraint - minimum number of anomalies}
-
-\item{nmax:}{constrait - maximum number of anomalies}
+Three parameters are used together to define anomalies: rank.prop is firsu used to filter on top x\% anomalies then one applies on top of this criteria conditions on a minimal (\code{nmin}) and maximal (\code{nmax}) number of anomalies to be provided.}
 }
 \description{
 Based on a summary normalized/stacked metric, retrieve top anomalies.

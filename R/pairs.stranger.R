@@ -1,5 +1,4 @@
 
-#'@export
 pairs.stranger <- function(x,id=NULL,...){
   assertthat::assert_that(inherits(x,"stranger"),msg="x must be a stranger object")
   if (is.null(id)){
