@@ -16,7 +16,7 @@
 #' @rdname dplyr-methods
 filter.stranger <- function(.data, ...) {    # dplyr 0.7.4+
   cl <- class(.data)
-  out <-dplyr:::filter.default(as.data.frame(.data),...)
+  out <-dplyr::filter(as.data.frame(.data),...)
   class(out) <- cl
   attr(out,"meta") <- attr(.data,"meta")
   return(out)
@@ -25,7 +25,7 @@ filter.stranger <- function(.data, ...) {    # dplyr 0.7.4+
 #' @rdname dplyr-methods
 filter.singular <- function(.data,...){     # dplyr 0.7.4+
   cl <- class(.data)
-  out <-dplyr:::filter.default(as.data.frame(.data),...)
+  out <-dplyr::filter(as.data.frame(.data),...)
   class(out) <- cl
   attr(out,"meta") <- attr(.data,"meta")
   return(out)

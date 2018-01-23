@@ -183,28 +183,10 @@
 <pre><code>## *** weird method Angle-based Outlier Factor
 ## abod based on function abod [abodOutlier]
 ## Metric: Numeric value (outlier factor) sorted in increasing order.</code></pre>
+<p>Note: during submission on CRAN, it seems <code>abodOutlier</code> package was not available.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/lucky_odds.html">lucky_odds</a></span>(<span class="dt">n.anom=</span><span class="dv">6</span>, <span class="dt">analysis.drop=</span><span class="st">"Species"</span>, <span class="dt">weird=</span><span class="st">"abod"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">anoplot</span>(<span class="dt">title=</span><span class="st">"abod - default parameters"</span>)</code></pre></div>
-<pre><code>## Loading required package: abodOutlier</code></pre>
-<pre><code>## Loading required package: cluster</code></pre>
-<pre><code>## Done:  10 / 150 
-## Done:  20 / 150 
-## Done:  30 / 150 
-## Done:  40 / 150 
-## Done:  50 / 150 
-## Done:  60 / 150 
-## Done:  70 / 150 
-## Done:  80 / 150 
-## Done:  90 / 150 
-## Done:  100 / 150 
-## Done:  110 / 150 
-## Done:  120 / 150 
-## Done:  130 / 150 
-## Done:  140 / 150 
-## Done:  150 / 150</code></pre>
-<pre><code>## Warning: Using size for a discrete variable is not advised.</code></pre>
-<p><img src="stranger_weirds_methods_files/figure-html/unnamed-chunk-5-1.png" width="100%"></p>
 <p>Default values for <code>abod</code> parameters:</p>
 <ul>
 <li>k=10</li>
@@ -234,10 +216,10 @@ Returns angle-based outlier factor for each observation. A small abof respect th
 <pre><code>## autoencoding...
 ## Optimizer counts:
 ## function gradient 
-##      161       50 
+##      142       44 
 ## Optimizer: successful convergence.
 ## Optimizer: convergence = 0, message = 
-## J.init = 41.81613, J.final = 0.324887, mean(rho.hat.final) = 0.001689419</code></pre>
+## J.init = 41.81555, J.final = 0.3797561, mean(rho.hat.final) = 0.001164171</code></pre>
 <pre><code>## Warning: Using size for a discrete variable is not advised.</code></pre>
 <p><img src="stranger_weirds_methods_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
 <p>Changing some parameters:</p>
@@ -250,7 +232,7 @@ Returns angle-based outlier factor for each observation. A small abof respect th
 ##       27        3 
 ## Optimizer: successful convergence.
 ## Optimizer: convergence = 0, message = 
-## J.init = 41.81615, J.final = 1.626775, mean(rho.hat.final) = 1.751601e-12</code></pre>
+## J.init = 41.81509, J.final = 1.626492, mean(rho.hat.final) = 1.758851e-12</code></pre>
 <pre><code>## Warning: Using size for a discrete variable is not advised.</code></pre>
 <p><img src="stranger_weirds_methods_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>
 <p>Default values for <code>autoencode</code> parameters:</p>
@@ -278,15 +260,13 @@ An autoencoder neural network is an unsupervised learning algorithm that applies
 <div id="isofor" class="section level2">
 <h2 class="hasAnchor">
 <a href="#isofor" class="anchor"></a>isofor</h2>
+<p>Note: isolatation forest method is not run in this vignette (non-CRAN package)</p>
 <pre><code>## *** weird method isolation Forest
 ## isofor based on function iForest [isofor]
 ## Metric: Positive numeric value (distance) sorted in decreasing order.</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/lucky_odds.html">lucky_odds</a></span>(<span class="dt">n.anom=</span><span class="dv">6</span>, <span class="dt">analysis.drop=</span><span class="st">"Species"</span>, <span class="dt">weird=</span><span class="st">"isofor"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">anoplot</span>(<span class="dt">title=</span><span class="st">"isofor - default parameters"</span>)</code></pre></div>
-<pre><code>## Loading required package: isofor</code></pre>
-<pre><code>## Warning: Using size for a discrete variable is not advised.</code></pre>
-<p><img src="stranger_weirds_methods_files/figure-html/unnamed-chunk-10-1.png" width="100%"></p>
 <p>Default values for <code>abod</code> parameters – see <code>?iForest</code>:</p>
 <ul>
 <li>nt=100</li>

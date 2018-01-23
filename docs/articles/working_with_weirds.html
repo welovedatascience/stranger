@@ -272,24 +272,24 @@ m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stranger
 <pre><code>## autoencoding...
 ## Optimizer counts:
 ## function gradient 
-##      191       53 
+##      145       63 
 ## Optimizer: successful convergence.
 ## Optimizer: convergence = 0, message = 
-## J.init = 41.81893, J.final = 0.3689983, mean(rho.hat.final) = 0.001385937</code></pre>
+## J.init = 41.8183, J.final = 0.3506188, mean(rho.hat.final) = 0.001418541</code></pre>
 <p>For convenience and further exploitation, a <code>merge</code> method is at your disposal to gather the two corresponding metrics in a single object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(metrics &lt;-<span class="st"> </span><span class="kw">merge</span>(m1,m2))</code></pre></div>
 <pre><code>##      .id knn_k_10_mean autoencode_nl_3_Nhidden_10
-##   1:   1    0.03647553                 0.06989930
-##   2:   2    0.04448610                 0.06869046
-##   3:   3    0.04354593                 0.07304249
-##   4:   4    0.04072704                 0.06892880
-##   5:   5    0.04519420                 0.07180840
+##   1:   1    0.03647553                 0.06757129
+##   2:   2    0.04448610                 0.06632634
+##   3:   3    0.04354593                 0.07064253
+##   4:   4    0.04072704                 0.06659895
+##   5:   5    0.04519420                 0.06948242
 ##  ---                                             
-## 146: 146    0.08621572                 0.05846855
-## 147: 147    0.10077827                 0.03393882
-## 148: 148    0.08622770                 0.03886931
-## 149: 149    0.10152256                 0.05923877
-## 150: 150    0.07692173                 0.02544889</code></pre>
+## 146: 146    0.08621572                 0.05053329
+## 147: 147    0.10077827                 0.03065829
+## 148: 148    0.08622770                 0.03462435
+## 149: 149    0.10152256                 0.05168573
+## 150: 150    0.07692173                 0.02318431</code></pre>
 </div>
 <div id="invoke-several-weirds-at-once-stranger" class="section level1">
 <h1 class="hasAnchor">
@@ -304,10 +304,10 @@ m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stranger
 <pre><code>## autoencoding...
 ## Optimizer counts:
 ## function gradient 
-##       94       42 
+##      159       58 
 ## Optimizer: successful convergence.
 ## Optimizer: convergence = 0, message = 
-## J.init = 41.81809, J.final = 0.36859, mean(rho.hat.final) = 0.001219024</code></pre>
+## J.init = 41.82084, J.final = 0.3580961, mean(rho.hat.final) = 0.001303231</code></pre>
 </div>
 <div id="does-not-work-autoencode-tunegrid" class="section level1">
 <h1 class="hasAnchor">
