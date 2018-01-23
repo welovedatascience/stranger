@@ -64,7 +64,9 @@ infow <- function(method){
 infow("abod")
 ```
 
-```{r, eval=TRUE}
+Note: during submission on CRAN, it seems `abodOutlier` package was not available. 
+
+```{r, eval=FALSE}
 iris %>% 
   lucky_odds(n.anom=6, analysis.drop="Species", weird="abod") %>%
   anoplot(title="abod - default parameters")

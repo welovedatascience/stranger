@@ -418,7 +418,7 @@ weird_isofor <- function(data=NULL,info=FALSE,colname=NULL,...){
   )
   if(info)return(meta)
 
-  assertthat::assert_that(require(meta$package,character.only=TRUE),msg=paste0("Package ",meta$package,paste(metapackage,"is required for this weird method.")))
+  assertthat::assert_that(require(meta$package,character.only=TRUE),msg=paste0("Package ",meta$package,paste(meta$package,"is required for this weird method.")))
 
   weird.args <- c(list(X=data),weird.args)
 
@@ -480,7 +480,7 @@ weird_kmeans <- function(data=NULL,info=FALSE,colname=NULL,type="means",...){
   )
   if(info)return(meta)
 
-  assertthat::assert_that(require(meta$package,character.only=TRUE),msg=paste0("Package ",meta$package,paste(metapackage,"is required for this weird method.")))
+  assertthat::assert_that(require(meta$package,character.only=TRUE),msg=paste0("Package ",meta$package,paste(meta$package,"is required for this weird method.")))
 
   weird.args <- c(list(x=data),weird.args)
 
@@ -548,7 +548,7 @@ weird_mahalanobis <- function(data=NULL,info=FALSE,colname=NULL,...){
   )
   if(info)return(meta)
 
-  assertthat::assert_that(require(meta$package,character.only=TRUE),msg=paste0("Package ",meta$package,paste(metapackage,"is required for this weird method.")))
+  assertthat::assert_that(require(meta$package,character.only=TRUE),msg=paste0("Package ",meta$package,paste(meta$package,"is required for this weird method.")))
 
   weird.args <- c(list(x=data),c(center=list(colMeans(data)), cov=list(cov(data)),weird.args))
 
@@ -606,7 +606,7 @@ weird_randomforest <- function(data=NULL,info=FALSE,colname=NULL,...){
   )
   if(info)return(meta)
 
-  assertthat::assert_that(require(meta$package,character.only=TRUE),msg=paste0("Package ",meta$package,paste(metapackage,"is required for this weird method.")))
+  assertthat::assert_that(require(meta$package,character.only=TRUE),msg=paste0("Package ",meta$package,paste(meta$package,"is required for this weird method.")))
 
   weird.args <- c(list(x=data),weird.args)
 

@@ -1,7 +1,7 @@
 Package: stranger
 Type: Package
 Title: Simple Toolkit in R for Anomalies Get, Explain and Report
-Version: 0.3.1
+Version: 0.3.12
 Authors@R: c(
     person("Eric", "Lecoutre", email = "eric.lecoutre@welovedatascience.com", role = c("aut","cre")),
     person("Sven", "Wauters", email = "sven.wauters@welovedatascience.com", role = "aut"))
@@ -21,7 +21,10 @@ Suggests: knitr,
           dbscan,
           autoencoder,
           rpart,
-          ranger
+          ranger,
+          abodOutlier,
+          mvoutlier,
+          randomForest
 VignetteBuilder: knitr
 Imports: assertthat  (>= 0.2) ,
          ggplot2,
