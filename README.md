@@ -14,7 +14,7 @@ stranger basics
 Using `stranger`, user has at disposal an analysis workflow.
 
 <hr/>
-![Analysis workflow](./man/figures/stranger_process_flow.png)
+![Analysis workflow](https://raw.githubusercontent.com/welovedatascience/stranger/master/man/figures/stranger_process_flow.png)
 <hr/>
 Main functions associated with proposed analysis workflow deal with:
 
