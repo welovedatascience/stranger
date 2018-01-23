@@ -41,10 +41,10 @@ export(weird_randomforest)
 export(weirds_list)
 exportMethods(cor)
 import(data.table)
-importFrom("dplyr","filter")
 import(ggplot2)
 import(tidyr)
 import(grid)
+importFrom("dplyr","filter","select","one_of","mutate")
 importFrom("graphics", "pairs", "par", "plot", "text","grid")
 importFrom("stats", "as.dendrogram", "cov", "dendrapply", "dist",
              "hclust", "is.leaf", "pnorm", "predict", "rect.hclust",

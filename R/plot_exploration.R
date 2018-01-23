@@ -101,7 +101,7 @@ explore_correlation <- function(data,...){
   # MAIN PART: Prepare data and plot
   data %>%
     ## Only numerical
-    select(one_of(numerical_feature))  %>%
+    dplyr::select(dplyr::one_of(numerical_feature))  %>%
     ## Compute Correlation
     cor(...) %>%
     round(digits = 2) %>%
@@ -111,13 +111,13 @@ explore_correlation <- function(data,...){
     #reorder_cormat() %>%
 
     ## Add rownames
-    mutate(var1 = rownames(.)) %>%
+    dplyr::mutate(var1 = rownames(.)) %>%
 
     ## Remove upper triangle
     #get_upper_tri() %>%
 
     ## Reshape
-    gather(key = var2, value = value, - var1, na.rm = TRUE ) -> tmp
+    tidyr::gather(key = var2, value = value, - var1, na.rm = TRUE ) -> tmp
 
   # put missing for diagonal
   tmp[tmp[,1]==tmp[,2],"value"] <- NA

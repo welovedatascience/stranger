@@ -175,72 +175,7 @@ investigate_feature_importance <- function(data, id, score, anomaly_id, num.tree
 }
 
 
-#
-## Mimic LIME approach - difficult in our case to retrace all the workflow...
-# investigate_feature_importance <- function(data, id, score, anomaly_id, k = NULL, ...){
-#
-#   if (is.null(k)) k <- min(1000,nrow(data)-1)
-#
-#   # Load library and data
-#   Vectorize(require)(package = c("FNN"),character.only = TRUE)
-#
-#   ## Filter data to keep only the K neighbours
-#   knn <- get.knn(data[, !colnames(data) %in% c(id,score)], k, algorithm="cover_tree")
-#   knn_id <- knn$nn.index[anomaly_id, ]
-#   knn_data <- data[data[, id] %in% c(anomaly_id, knn_id), ]
-#
-#
-#   # Step 1: Compute the score sensitivity for each variable
-#
-#   ## Prepare an empty dataframe to collect resuts
-#   feature <- as.character(colnames(knn_data[, !colnames(knn_data) %in% c(id, score)]))
-#   result <- as.data.frame(feature)
-#   result$var_imp <- 0
-#   result$gap_with_mean<- 0
-#
-#   ## Compute sensitivity for each feature
-#   j <- 1
-#   for (feature_i in feature){
-#     temp <- as.data.frame(knn_data)
-#     ## Keep information of the gap between actual value and mean
-#     result[j, "gap_with_mean"] <- round((temp[temp[,id] == anomaly_id, feature_i] - mean(temp[, feature_i]) ) / mean(temp[, feature_i]), 2)
-#     ## Set the input to its population mean
-#     temp[temp[,id] == anomaly_id , feature_i] <- mean(temp[, feature_i])
-#     ## Recompute the score using same method
-#     temp <- crazyfy(temp)   #### SHOULD NOT USE THAT STEP BUT NO CHOOSE!!!!!!!!!!!!!!
-#     temp <- strange(temp)
-#     temp <- as.data.frame(temp)
-#     ## Save the differential in score
-#     importance <- (temp[temp[,id] == anomaly_id, score] - knn_data[knn_data[, id] == anomaly_id, score]) / knn_data[knn_data[,id] == anomaly_id, score]
-#     result[j, "var_imp"] <- round(importance, 2)
-#     j <- j +1
-#   }
-#
-#   # Step 2: reshape data
-#   result <- gather(result, key = indicator, value = val,-feature)
-#   result <- mutate(result, sign = sign(val))
-#   result <- mutate(result, value = ifelse(indicator == "var_imp", abs(val), -abs(val)))
-#   result <- arrange(result,desc(val))
-#   result <- mutate(result, sign = as.character(sign))
-#
-#   # Step 3: Plot
-#   ggplot(result, aes(group = indicator)) +   # Fill column
-#     geom_bar(aes(x = feature, y = value,  fill = sign), stat = "identity", width = .6, alpha = 0.8) +
-#     scale_fill_manual(values = c("#F64D27", "#3F8219")) +
-#     geom_hline(yintercept=0, linetype="dashed", size=0.7) +
-#     geom_text(aes(label = val, x = feature, y = 0.2*val), size = 7,color = "white") +
-#     geom_text(label="Variable Importance (%)", x=0.5, y=0.2, hjust=0, size=4) +
-#     geom_text(label="Distance from mean (%)", x=0.5, y=-1, hjust=0, size=4) +
-#     coord_flip() +  # Flip axes
-#     theme(panel.background = element_blank(),
-#           panel.grid = element_blank(),
-#           axis.ticks = element_blank(),
-#           axis.text.x = element_blank(),
-#           panel.border = element_blank(),
-#           axis.title.x=element_blank(),
-#           axis.title.y=element_blank(),
-#           legend.position="none")
-# }
+
 
 
 investigate_scores_decline <- function(data, id, score, anomaly_id, k = NULL, n_label = 15, ...){
