@@ -144,14 +144,14 @@ Usage here is to learn an autoencoder then apply it to same data and look at hig
 
 ## isofor
 
-
+Note: isolatation forest method is not run in this vignette (non-CRAN package)
 
 
 ```{r, echo=FALSE}
 infow("isofor")
 ```
 
-```{r, eval=TRUE}
+```{r, eval=FALSE}
 iris %>% 
   lucky_odds(n.anom=6, analysis.drop="Species", weird="isofor") %>%
   anoplot(title="isofor - default parameters")
