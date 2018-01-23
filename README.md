@@ -56,3 +56,4 @@ TODO
 -   Add weird for H2O autoencode
 -   add install\_weirdness to install all weird packages
 -   add `get_info` methods for every class
+-   submit to CRAN
