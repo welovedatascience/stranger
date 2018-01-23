@@ -8,3 +8,9 @@ R CMD check results
 
 No issue for notes.
 
+## win-builder check: OK
+
+## R-hub: not possible
+Seems R-hub does not handle packages versions specified in brackets for dependencies.
+
+
