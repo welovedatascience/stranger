@@ -20,7 +20,8 @@ Suggests: knitr,
           FNN,
           dbscan,
           autoencoder,
-          rpart
+          rpart,
+          ranger
 VignetteBuilder: knitr
 Imports: assertthat  (>= 0.2) ,
          ggplot2,

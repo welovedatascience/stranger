@@ -56,7 +56,14 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/welovedatascience/stranger">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -71,7 +78,7 @@
       <h1>working with weirds</h1>
                         <h4 class="author">WeLoveDataScience</h4>
             
-            <h4 class="date">2017-12-22</h4>
+            <h4 class="date">2018-01-23</h4>
           </div>
 
     
@@ -86,8 +93,8 @@
 <p>Assumed <code>dbscan</code> package is installed, one can for instance use <code>lof</code> weird, use 2 as cutpoint and derive an anomaly object with <a href="./../references/as.anomalies.html"><code>as.anomalies</code></a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/crazyfy.html">crazyfy</a></span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/strange.html">strange</a></span>(<span class="dt">weird=</span><span class="st">"lof"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">singularize</span>() -&gt;<span class="st"> </span>s</code></pre></div>
+<span class="st">  </span><span class="kw"><a href="../reference/stranger.html">strange</a></span>(<span class="dt">weird=</span><span class="st">"lof"</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="../reference/singularize.html">singularize</a></span>() -&gt;<span class="st"> </span>s</code></pre></div>
 <pre><code>## Loading required package: dbscan</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anom &lt;-<span class="st"> </span><span class="kw">filter</span>(s,lof_k_<span class="dv">10</span><span class="op">&gt;</span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/as.anomalies.html">as.anomalies</a></span>()</code></pre></div>
 <p><strong>NOTE</strong> our current implementation of <code>select</code> is not pipeable; we are still trying to ingest Hadley Wickham litterature on programming with <code>dyplyr</code>…</p>
@@ -115,7 +122,7 @@ tg</code></pre></div>
 ## 6 20   median</code></pre>
 <p>We thus have 6 possible combinations</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(anoms.all &lt;-<span class="st">  </span>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/crazyfy.html">crazyfy</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/strange.html">strange</a></span>(<span class="dt">weird=</span><span class="st">"knn"</span>,<span class="dt">tuneGrid=</span>tg))</code></pre></div>
+<span class="st">  </span><span class="kw"><a href="../reference/crazyfy.html">crazyfy</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/stranger.html">strange</a></span>(<span class="dt">weird=</span><span class="st">"knn"</span>,<span class="dt">tuneGrid=</span>tg))</code></pre></div>
 <pre><code>##      .id knn_k_5_mean knn_k_10_mean knn_k_20_mean knn_k_5_median
 ##   1:   1   0.02560115    0.03647553    0.05368046     0.02601460
 ##   2:   2   0.03628835    0.04448610    0.06322990     0.03894765
@@ -148,7 +155,7 @@ tg</code></pre></div>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tg =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">k=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">5</span><span class="op">:</span><span class="dv">8</span>))
 (anoms &lt;-<span class="st">  </span>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/crazyfy.html">crazyfy</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/strange.html">strange</a></span>(<span class="dt">weird=</span><span class="st">"knn"</span>,<span class="dt">tuneGrid=</span>tg,<span class="dt">algorithm=</span><span class="kw">c</span>(<span class="st">"cover_tree"</span>)))</code></pre></div>
+<span class="st">  </span><span class="kw"><a href="../reference/crazyfy.html">crazyfy</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/stranger.html">strange</a></span>(<span class="dt">weird=</span><span class="st">"knn"</span>,<span class="dt">tuneGrid=</span>tg,<span class="dt">algorithm=</span><span class="kw">c</span>(<span class="st">"cover_tree"</span>)))</code></pre></div>
 <pre><code>##      .id knn_k_5_mean knn_k_5_mean.1 knn_k_6_mean knn_k_7_mean
 ##   1:   1   0.02560115     0.02560115   0.02800096   0.03034193
 ##   2:   2   0.03628835     0.03628835   0.03800174   0.03946357
@@ -173,7 +180,7 @@ tg</code></pre></div>
 ## 148:   0.08103779
 ## 149:   0.09678463
 ## 150:   0.07124970</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(meta  &lt;-<span class="st"> </span><span class="kw">get_info</span>(anoms))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(meta  &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_info.html">get_info</a></span>(anoms))</code></pre></div>
 <pre><code>##                weird_method          name  package package.source
 ## knn_k_5_mean   "k-Nearest Neighbour" "knn" "FNN"   "CRAN"        
 ## knn_k_5_mean.1 "k-Nearest Neighbour" "knn" "FNN"   "CRAN"        
@@ -259,30 +266,30 @@ tg</code></pre></div>
 <p>So you have decided to go for and try two different methods. Let say <em>knn</em> and <em>autoencode</em>.</p>
 <p>First, we can create two object containg assciatdd metrics.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/crazyfy.html">crazyfy</a></span>()
-m1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/strange.html">strange</a></span>(data, <span class="dt">weird=</span><span class="st">"knn"</span>)
-m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/strange.html">strange</a></span>(data, <span class="dt">weird=</span><span class="st">"autoencode"</span>)</code></pre></div>
+m1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stranger.html">strange</a></span>(data, <span class="dt">weird=</span><span class="st">"knn"</span>)
+m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stranger.html">strange</a></span>(data, <span class="dt">weird=</span><span class="st">"autoencode"</span>)</code></pre></div>
 <pre><code>## Loading required package: autoencoder</code></pre>
 <pre><code>## autoencoding...
 ## Optimizer counts:
 ## function gradient 
-##      158       45 
+##      191       53 
 ## Optimizer: successful convergence.
 ## Optimizer: convergence = 0, message = 
-## J.init = 41.81939, J.final = 0.3670506, mean(rho.hat.final) = 0.0013071</code></pre>
+## J.init = 41.81893, J.final = 0.3689983, mean(rho.hat.final) = 0.001385937</code></pre>
 <p>For convenience and further exploitation, a <code>merge</code> method is at your disposal to gather the two corresponding metrics in a single object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(metrics &lt;-<span class="st"> </span><span class="kw">merge</span>(m1,m2))</code></pre></div>
 <pre><code>##      .id knn_k_10_mean autoencode_nl_3_Nhidden_10
-##   1:   1    0.03647553                 0.06995265
-##   2:   2    0.04448610                 0.06862437
-##   3:   3    0.04354593                 0.07301759
-##   4:   4    0.04072704                 0.06888553
-##   5:   5    0.04519420                 0.07188392
+##   1:   1    0.03647553                 0.06989930
+##   2:   2    0.04448610                 0.06869046
+##   3:   3    0.04354593                 0.07304249
+##   4:   4    0.04072704                 0.06892880
+##   5:   5    0.04519420                 0.07180840
 ##  ---                                             
-## 146: 146    0.08621572                 0.05639761
-## 147: 147    0.10077827                 0.03196745
-## 148: 148    0.08622770                 0.03724083
-## 149: 149    0.10152256                 0.05767972
-## 150: 150    0.07692173                 0.02418279</code></pre>
+## 146: 146    0.08621572                 0.05846855
+## 147: 147    0.10077827                 0.03393882
+## 148: 148    0.08622770                 0.03886931
+## 149: 149    0.10152256                 0.05923877
+## 150: 150    0.07692173                 0.02544889</code></pre>
 </div>
 <div id="invoke-several-weirds-at-once-stranger" class="section level1">
 <h1 class="hasAnchor">
@@ -291,16 +298,16 @@ m2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/strange.
 <p>With its first parameter <em>methodList</em> you can supply many methods that will be invoked with their default parameter.</p>
 <p>If you want to use your own values or use a tuneGrid for a given method, you will have to create <em>weird</em> objects using <code>weird</code> function and pass a list of such <em>weirds</em> object to the parameter <em>tuneList</em>.</p>
 <p>Following call will for instance: * fit a knn <em>weird</em> with default values (taken from <em>methodList</em>) * fit a autoencode <em>weird</em> with default values * also fit a knn but with <em>k</em> set to 20 (not recommended for iris data having 50 observations)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s3=<span class="kw"><a href="../reference/strange.html">stranger</a></span>(data,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s3=<span class="kw"><a href="../reference/stranger.html">stranger</a></span>(data,
     <span class="dt">methodList=</span><span class="kw">c</span>(<span class="st">"knn"</span>,<span class="st">"autoencode"</span>),
     <span class="dt">tuneList=</span><span class="kw">list</span>(<span class="kw"><a href="../reference/weird.html">weird</a></span>(<span class="dt">method=</span><span class="st">"knn"</span>,<span class="dt">k=</span><span class="dv">20</span>)))</code></pre></div>
 <pre><code>## autoencoding...
 ## Optimizer counts:
 ## function gradient 
-##      117       31 
+##       94       42 
 ## Optimizer: successful convergence.
 ## Optimizer: convergence = 0, message = 
-## J.init = 41.82067, J.final = 0.3696793, mean(rho.hat.final) = 0.00121366</code></pre>
+## J.init = 41.81809, J.final = 0.36859, mean(rho.hat.final) = 0.001219024</code></pre>
 </div>
 <div id="does-not-work-autoencode-tunegrid" class="section level1">
 <h1 class="hasAnchor">

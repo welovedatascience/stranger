@@ -56,7 +56,14 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/welovedatascience/stranger">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -71,7 +78,7 @@
       <h1>stranger for the impatient</h1>
                         <h4 class="author">WeLoveDataScience</h4>
             
-            <h4 class="date">2017-12-22</h4>
+            <h4 class="date">2018-01-23</h4>
           </div>
 
     
@@ -123,8 +130,8 @@
 <p>Here is an example of explicitely invoke the whole processes step by step.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span><span class="st">       </span><span class="co"># remove Species - meaningless to define anomalies</span>
 <span class="st">  </span><span class="kw"><a href="../reference/crazyfy.html">crazyfy</a></span>() <span class="op">%&gt;%</span><span class="st">                     </span><span class="co"># data preparation: add id, rescale [0,1], eventualy takes log</span>
-<span class="st">  </span><span class="kw"><a href="../reference/strange.html">strange</a></span>(<span class="st">"knn"</span>,<span class="dt">k=</span><span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st">            </span><span class="co"># computes knn distances to 5 neighbors, aggregate distances with the mean (default) </span>
-<span class="st">  </span><span class="kw">singularize</span>() <span class="op">%&gt;%</span><span class="st">                 </span><span class="co"># required step if no manual selection</span>
+<span class="st">  </span><span class="kw"><a href="../reference/stranger.html">strange</a></span>(<span class="st">"knn"</span>,<span class="dt">k=</span><span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st">            </span><span class="co"># computes knn distances to 5 neighbors, aggregate distances with the mean (default) </span>
+<span class="st">  </span><span class="kw"><a href="../reference/singularize.html">singularize</a></span>() <span class="op">%&gt;%</span><span class="st">                 </span><span class="co"># required step if no manual selection</span>
 <span class="st">  </span><span class="kw"><a href="../reference/get_anomalies.html">get_anomalies</a></span>(<span class="dt">nmin=</span><span class="dv">6</span>,<span class="dt">nmax=</span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># ask for some anomalies</span>
 <span class="st">  </span><span class="kw">fortify</span>(<span class="dt">data=</span>iris,<span class="dt">colname=</span><span class="st">"anomaly"</span>) <span class="op">%&gt;%</span><span class="st">          </span><span class="co"># enrich iris dataset with a flag called "anomaly" (0/1)</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length,<span class="dt">y=</span>Sepal.Width,<span class="dt">color=</span>Species,<span class="dt">size=</span>anomaly))<span class="op">+</span><span class="st">   </span><span class="co"># let's view!</span>
@@ -159,7 +166,7 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">   </span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span>
 <span class="st">   </span><span class="kw"><a href="../reference/crazyfy.html">crazyfy</a></span>() <span class="op">%&gt;%</span>
-<span class="st">   </span><span class="kw"><a href="../reference/strange.html">strange</a></span>() </code></pre></div>
+<span class="st">   </span><span class="kw"><a href="../reference/stranger.html">strange</a></span>() </code></pre></div>
 </div>
 <div id="similarity-between-top-anomalies" class="section level2">
 <h2 class="hasAnchor">

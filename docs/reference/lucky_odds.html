@@ -81,7 +81,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/welovedatascience/stranger">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -98,9 +103,9 @@
 
     
     <p><code>lucky_odds</code> is basically a wrapper around the process: <code><a href='add_id.html'>add_id</a></code> --&gt; <code><a href='crazyfy.html'>crazyfy</a></code>
---&gt; <code><a href='strange.html'>strange</a></code> (weird method with set of parameters) --&gt; <code>singularize</code>
+--&gt; <code><a href='stranger.html'>strange</a></code> (weird method with set of parameters) --&gt; <code><a href='singularize.html'>singularize</a></code>
  (default parameters: all methods)
---&gt; <code>get_strangest</code> (flag top <em>n.anom</em> anomalies) --&gt; <code>fortify</code> to enrich source data.
+--&gt; <code><a href='get_anomalies.html'>get_anomalies</a></code> (flag top <em>n.anom</em> anomalies) --&gt; <code>fortify</code> to enrich source data.
 By calling <code>lucky_odds</code>, analyst gets back source data with an additional column flagging some records.
 Though obviously simplifying the analysis process, not all options are available and intermediate objects
 are not available for further analysis.</p>
@@ -122,6 +127,10 @@ are not available for further analysis.</p>
       <td><p>Number of anomaly candidate records to flags.</p></td>
     </tr>
     <tr>
+      <th>&#8230;</th>
+      <td><p>Additional parameters to be passed to weird method (<code>analysis.method</code>).</p></td>
+    </tr>
+    <tr>
       <th>analysis.drop</th>
       <td><p>Character - set of variables to be removed from analysis (metrics computations by weird).</p></td>
     </tr>
@@ -130,16 +139,16 @@ are not available for further analysis.</p>
       <td><p>Character - set of variables to be kept for analyis  (metrics computations by weird).</p></td>
     </tr>
     <tr>
+      <th>weird</th>
+      <td><p>weird method to use for metric computation</p></td>
+    </tr>
+    <tr>
       <th>stack</th>
-      <td><p>Stacking metric passed to <code>gest_strangest</code>.</p></td>
+      <td><p>Stacking metric passed to <code><a href='get_anomalies.html'>get_anomalies</a></code>.</p></td>
     </tr>
     <tr>
       <th>stack.method</th>
-      <td><p>Stacking selection method passed to  <code>gest_strangest</code>.</p></td>
-    </tr>
-    <tr>
-      <th>&#8230;</th>
-      <td><p>Additional parameters to be passed to weird method (<code>analysis.method</code>).</p></td>
+      <td><p>Stacking selection method passed to  <code><a href='get_anomalies.html'>get_anomalies</a></code>.</p></td>
     </tr>
     </table>
     
@@ -147,7 +156,7 @@ are not available for further analysis.</p>
 
     
     <p>If your source data contains variables you don't want to use in metrics computations - weird method: knnw, autoencode...,
-then you have to first select analysis variables. You can thos this use either <code>analysis.keep</code> OR <code>analyisis.drop</code>.
+then you have to first select analysis variables. You can thos this use either <code>analysis.keep</code> OR <code>analysis.drop</code>.
 Those two parameters are mutually exclusive.
 library(stranger)
 data(iris)

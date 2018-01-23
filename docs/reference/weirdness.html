@@ -81,7 +81,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/welovedatascience/stranger">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -99,7 +104,7 @@
     
     <p>Those wrapper are mainly used internally by other functions and the
 recommended way is to start your detection process by using one of:
- <code><a href='strange.html'>strange</a></code>, <code><a href='strange.html'>stranger</a></code> or <code><a href='lucky_odds.html'>lucky_odds</a></code> functions.</p>
+ <code><a href='stranger.html'>strange</a></code>, <code><a href='stranger.html'>stranger</a></code> or <code><a href='lucky_odds.html'>lucky_odds</a></code> functions.</p>
     
 
     <pre class="usage"><span class='fu'>weird_knn</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>info</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>colname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
@@ -149,6 +154,10 @@ to nearest k points.</p></td>
     <tr>
       <th>&#8230;</th>
       <td><p>additional parameters to be passed to weird method, for instance k for knn</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>one of "means" or "euclidian". See <code>kmeans</code> from <code>stats</code> package.</p></td>
     </tr>
     </table>
     

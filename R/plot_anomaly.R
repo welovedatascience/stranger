@@ -152,8 +152,8 @@ investigate_feature_importance <- function(data, id, score, anomaly_id, num.tree
   data$anomalyRF <- as.factor(data[[id]] %in% anomaly_id)
   remove=c(score,id)
   dataRF <- data[,!colnames(data) %in% remove,drop=FALSE]
-  rf <- ranger(formula=anomalyRF~. , data=dataRF, importance="impurity", num.trees=num.trees, write.forest = FALSE)
-  varimp <- data.frame(Importance=importance(rf))
+  rf <- ranger::ranger(formula=anomalyRF~. , data=dataRF, importance="impurity", num.trees=num.trees, write.forest = FALSE)
+  varimp <- data.frame(Importance=ranger::importance(rf))
   varimp[,"Variable"] <- rownames(varimp)
 
 

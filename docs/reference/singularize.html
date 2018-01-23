@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data preparation before detection of strangers — crazyfy â€¢ stranger</title>
+<title>Normalize anomalies metrics and (eventually) stack them — singularize â€¢ stranger</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -98,85 +98,48 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data preparation before detection of strangers</h1>
+    <h1>Normalize anomalies metrics and (eventually) stack them</h1>
     </div>
 
     
-    <p><code>crazyfy</code> preprocess data for anomalies detection computational
-routines with <code>strange</code> : missing values
-treatement, variables standardisation, eventual recoding in log,
-treatment of character/factor variables.</p>
+    <p><code>singularize</code> derives normalized/standardized versions of different weirds contained in a stranger object so that they are directly comparable and then propose various aggregated measures (stacking).</p>
     
 
-    <pre class="usage"><span class='fu'>crazyfy</span>(<span class='no'>data</span>, <span class='kw'>do</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"factor"</span>, <span class='st'>"log"</span>, <span class='st'>"impute"</span>, <span class='st'>"range"</span>), <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>skewness.cutpoint</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>NA.method</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>NA.value</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>singularize</span>(<span class='no'>strangerObject</span>, <span class='kw'>methods</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"norm"</span>, <span class='st'>"rank"</span>), <span class='kw'>stacks</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"max"</span>,
+  <span class='st'>"avg"</span>, <span class='st'>"min"</span>, <span class='st'>"damavg"</span>, <span class='st'>"pruavg"</span>), <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"N_anom"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>Source data (data.frame or data.table).</p></td>
+      <th>strangerObject</th>
+      <td><p>An object build with <code><a href='stranger.html'>stranger</a></code> or <code>strangest</code></p></td>
     </tr>
     <tr>
-      <th>do</th>
-      <td><p>character vector - List of processing steps to apply -- see details.</p></td>
+      <th>methods</th>
+      <td><p>character vector of standardization methods: norm (normalize) and rank (ranking version). By default, both methods are used.</p></td>
     </tr>
     <tr>
-      <th>id</th>
-      <td><p>(optional) character - name of a preexisting variable to be used as ID.</p></td>
+      <th>stacks</th>
+      <td><p>character vectors of stacked versions. Note that some methods require more than 2 weirds metrics to be used</p></td>
     </tr>
     <tr>
-      <th>skewness.cutpoint</th>
-      <td><p>numeric - value that is used to determine whether
-log recoding should be applied.</p></td>
+      <th>prefix</th>
+      <td><p>default prefix used to name generated new metrics</p></td>
     </tr>
     <tr>
-      <th>NA.method</th>
-      <td><p>character - method to be used for missing values imputation;
-one of "mean" or "value" (then using following parameter <code>NA.value</code>).</p></td>
-    </tr>
-    <tr>
-      <th>NA.value</th>
-      <td><p>numeric Value to be used to impute missing values when <code>NA.method</code>
-if "value".</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>logical - should function display some details about processing.</p></td>
+      <th>&#8230;</th>
+      <td><p>Additional parameters - Currently not used.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Pre-processed data of classes data.table overloaded by crazy.data.table.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>See here this list of possible pre-treatment operations.
-Factors/characters are transformed into numeric by using term frequency–inverse
-document frequency approach (td-idf). Note that we use the smooth weighting IDF weight,
-ie. we take the log of 1+N/nt where N is the number of observations and nt the frequency
-for the specific term t.</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>stranger</span>)
-<span class='fu'>data</span>(<span class='no'>iris</span>)
-<span class='no'>crazy</span> <span class='kw'>&lt;-</span> <span class='fu'>crazyfy</span>(<span class='no'>iris</span>[,<span class='fl'>1</span>:<span class='fl'>4</span>])</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

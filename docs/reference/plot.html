@@ -81,7 +81,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/welovedatascience/stranger">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -120,6 +125,12 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>x</th>
+      <td><p>is either of class dataframe, stranger or anomaly. It contains the observations; each row represents an observation
+and each variable is stored in one column. It must have at least one column with IDs and one column with the anomaly
+score for each ID.</p></td>
+    </tr>
+    <tr>
       <th>type</th>
       <td><p>is the name of the visualization;
 (1) A hierarchical clustering, named "cluster", showing among the top n-anomaly which records belongs to the same cluster
@@ -145,43 +156,8 @@ The shape indicates how extrem and how frequent is the anomaly score of a speici
       <td><p>is the record ID you want to investigate</p></td>
     </tr>
     <tr>
-      <th>data</th>
-      <td><p>is either of class dataframe, stranger or anomaly. It contains the observations; each row represents an observation
-and each variable is stored in one column. It must have at least one column with IDs and one column with the anomaly
-score for each ID.</p></td>
-    </tr>
-    <tr>
-      <th>check</th>
-      <td><p>logical indicating if object data should be checked for validity. The default is TRUE, this check is not necessary
-when data is known to be valid such as when it is the direct result of stranger().</p></td>
-    </tr>
-    <tr>
-      <th>keep</th>
-      <td><p>character vector: names of columns to keep (filter)</p></td>
-    </tr>
-    <tr>
-      <th>drop</th>
-      <td><p>character vector: names of columns to drop (filter)</p></td>
-    </tr>
-    <tr>
-      <th>n.cluster</th>
-      <td><p>is the number of cluster groups to emphasis.
-This parameter must only be specified with type ="cluster".</p></td>
-    </tr>
-    <tr>
-      <th>n.anom</th>
-      <td><p>is the number of top anomalies to be considered.
-This parameter must only be specified with type ="cluster".</p></td>
-    </tr>
-    <tr>
-      <th>k</th>
-      <td><p>is the number of neighbours to be considered. This parameter must always be specified,
-except with type = "cluster".</p></td>
-    </tr>
-    <tr>
-      <th>n_label</th>
-      <td><p>specifies the number of data point to be labelled in the plot.
-This parameter must only be specified with type ="scores_decline".</p></td>
+      <th>&#8230;</th>
+      <td><p>Additional parameters to pass</p></td>
     </tr>
     </table>
     
@@ -203,21 +179,22 @@ This may help to identify the features behind the score.
 (4) A dots plot, names "score_decline", showing the decrease in anomaly score among the k nearest neighbours of a specific record.
 The shape indicates how extrem and how frequent is the anomaly score of a speicif record amoung its neighbours.
 (5) A Regression tree, named "regression_tree", showing the roots to high score around a specific record.</p>
+<p>Extra parameters that can be used in &#8230;:</p><ul>
+<li><p>check logical indicating if object data should be checked for validity. The default is TRUE, this check is not necessary
+when data is known to be valid such as when it is the direct result of stranger().</p></li>
+<li><p>keep character vector: names of columns to keep (filter)</p></li>
+<li><p>drop character vector: names of columns to drop (filter)</p></li>
+<li><p>n.cluster is the number of cluster groups to emphasis.
+This parameter must only be specified with type ="cluster".</p></li>
+<li><p>n.anom is the number of top anomalies to be considered.
+This parameter must only be specified with type ="cluster".</p></li>
+<li><p>k is the number of neighbours to be considered. This parameter must always be specified,
+except with type = "cluster".</p></li>
+<li><p>n_label specifies the number of data point to be labelled in the plot.
+This parameter must only be specified with type ="scores_decline".</p></li>
+</ul>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>data</span>(<span class='no'>iris</span>)
-<span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>Species</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='crazyfy.html'>crazyfy</a></span>()
-<span class='no'>anom1</span><span class='kw'>&lt;-</span> <span class='no'>data</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='strange.html'>strange</a></span>()
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fortify</span>(<span class='no'>anom1</span>)
-<span class='fu'>investigate</span>(<span class='no'>result</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"cluster"</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>".id"</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='st'>"knn_k_10_mean"</span>, <span class='kw'>anomaly_id</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>n.cluster</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>n.anom</span> <span class='kw'>=</span> <span class='fl'>50</span>)
-<span class='fu'>investigate</span>(<span class='no'>result</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"neighbours"</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>".id"</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='st'>"knn_k_10_mean"</span>, <span class='kw'>anomaly_id</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>200</span>)
-<span class='fu'>investigate</span>(<span class='no'>result</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"feature_importance"</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>".id"</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='st'>"knn_k_10_mean"</span>, <span class='kw'>anomaly_id</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>100</span>)
-<span class='fu'>investigate</span>(<span class='no'>result</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"scores_decline"</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>".id"</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='st'>"knn_k_10_mean"</span>, <span class='kw'>anomaly_id</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>n_label</span> <span class='kw'>=</span> <span class='fl'>10</span>)
-<span class='fu'>investigate</span>(<span class='no'>result</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"regression_tree"</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>".id"</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='st'>"knn_k_10_mean"</span>, <span class='kw'>anomaly_id</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>1000</span>)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -227,9 +204,7 @@ The shape indicates how extrem and how frequent is the anomaly score of a speici
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

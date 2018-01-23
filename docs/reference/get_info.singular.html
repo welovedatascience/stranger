@@ -81,7 +81,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/welovedatascience/stranger">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -102,8 +107,21 @@ Note: always print (cat)  information, store the content if you want to programm
     
 
     <pre class="usage"><span class='co'># S3 method for singular</span>
-<span class='fu'>get_info</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-        
+<span class='fu'><a href='get_info.html'>get_info</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>One object from stranger package</p></td>
+    </tr>
+    <tr>
+      <th>&#8230;</th>
+      <td><p>Additional parameters - not used currently</p></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>(invisible) list with two componenents: metrics and standardizations. First slot consists in metrics attributes (corresponding weird info), second slot is a vector containing the names of aggregated standardized derived metrics.</p>
@@ -112,12 +130,13 @@ Note: always print (cat)  information, store the content if you want to programm
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='no'>info</span> <span class='kw'>&lt;-</span>  <span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>Species</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='crazyfy.html'>crazyfy</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='strange.html'>stranger</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>singularize</span>() <span class='kw'>%&gt;%</span> <span class='fu'>get_info</span>()
+<span class='no'>info</span> <span class='kw'>&lt;-</span>  <span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>Species</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='crazyfy.html'>crazyfy</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='stranger.html'>stranger</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='singularize.html'>singularize</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='get_info.html'>get_info</a></span>()
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
       

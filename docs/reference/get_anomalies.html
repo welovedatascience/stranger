@@ -81,7 +81,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/welovedatascience/stranger">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -96,7 +101,9 @@
     <h1>Retrieve anomalies</h1>
     </div>
 
-
+    
+    <p>Based on a summary normalized/stacked metric, retrieve top anomalies.</p>
+    
 
     <pre class="usage"><span class='fu'>get_anomalies</span>(<span class='no'>x</span>, <span class='kw'>rank.prop</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>nmin</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>nmax</span> <span class='kw'>=</span> <span class='fl'>300</span>,
   <span class='kw'>stack.use</span> <span class='kw'>=</span> <span class='st'>"avg"</span>, <span class='kw'>method.use</span> <span class='kw'>=</span> <span class='st'>"norm"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
@@ -107,6 +114,18 @@
     <tr>
       <th>x</th>
       <td><p>stranger object (before of after singularize)</p></td>
+    </tr>
+    <tr>
+      <th>rank.prop</th>
+      <td><p>proportion of records to be considered as anomalies</p></td>
+    </tr>
+    <tr>
+      <th>nmin</th>
+      <td><p>constraint - minimum number of anomalies</p></td>
+    </tr>
+    <tr>
+      <th>nmax</th>
+      <td><p>constrait - maximum number of anomalies</p></td>
     </tr>
     <tr>
       <th>stack.use</th>
@@ -124,24 +143,36 @@
       <th>...</th>
       <td><p>additional parameters to pass
 to singularize (if called on a non-singularized object)</p>
-<p>Anoamlies selection is performed using one summary metric. This summary metrics is assumed to stacked some base metrics - may be only one!. Stacking is performed after standardisarion, being possible with two approaches: normalisation (<code>method.use</code> = "norm") or ranking (<code>method.use</code> = "rank"). See <code>singularize</code> function.</p>
-<p>Three parameters are used together to define anomalies: rank.prop is firsu used to filter on top x<!-- % anomalies then one applies on top of this criteria conditions on a minimal (\code{nmin}) and maximal (\code{nmax}) number of anomalies to be provided.} -->
-
-rank.prop:proportion of records to be considered as anomalies
-
-nmin:constraint - minimum number of anomalies
-
-nmax:constrait - maximum number of anomalies</p></td>
+<p>Anomalies selection is performed using one summary metric. This summary metrics is assumed to stacked some base metrics - may be only one!. Stacking is performed after standardisation, being possible with two approaches: normalisation (<code>method.use</code> = "norm") or ranking (<code>method.use</code> = "rank"). See <code><a href='singularize.html'>singularize</a></code> function.</p>
+<p>Three parameters are used together to define anomalies: rank.prop is firsu used to filter on top x% anomalies then one applies on top of this criteria conditions on a minimal (<code>nmin</code>) and maximal (<code>nmax</code>) number of anomalies to be provided.</p></td>
     </tr>
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='crazyfy.html'>crazyfy</a></span>(<span class='no'>iris</span>[,<span class='fl'>1</span>:<span class='fl'>4</span>])
+(<span class='no'>anom</span> <span class='kw'>&lt;-</span> <span class='fu'>get_anomalies</span>(<span class='fu'><a href='stranger.html'>strange</a></span>(<span class='no'>data</span>)))</div><div class='output co'>#&gt; <span class='message'>Loading required package: FNN</span></div><div class='output co'>#&gt; 
+#&gt; Ordering: -1xN_anom_norm_avg and -1xN_anom_norm_avg
+#&gt;  0 outliers found by default with this stacking and this method, which is not enough to satisfy nmin= 10 . Following most probable outliers are added to selection.</div><div class='output co'>#&gt;  [1] 132 118 119  42 107 110 123 115  16 135
+#&gt; 
+#&gt; *** Anomaly object containing 10 anomalies provided with their value for id variable '.id'.
+#&gt; Use as a vector. Available methods: fortify, plot</div><span class='co'># NOT RUN {</span>
+<span class='fu'>library</span>(<span class='no'>dplyr</span>)
+<span class='no'>ss</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>Species</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='crazyfy.html'>crazyfy</a></span>() <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='stranger.html'>strange</a></span>(<span class='kw'>weird</span><span class='kw'>=</span><span class='st'>"autoencode"</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='singularize.html'>singularize</a></span>(<span class='kw'>methods</span><span class='kw'>=</span><span class='st'>"norm"</span>,<span class='kw'>stacks</span><span class='kw'>=</span><span class='st'>"avg"</span>)
+ <span class='no'>anom2</span> <span class='kw'>&lt;-</span> <span class='no'>ss</span> <span class='kw'>%&gt;%</span> <span class='fu'>get_anomalies</span>(<span class='kw'>nmin</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>nmax</span><span class='kw'>=</span><span class='fl'>4</span>)
+ <span class='no'>ss</span> <span class='kw'>%&gt;%</span> <span class='fu'>plot</span>(<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"n"</span>,<span class='kw'>score</span><span class='kw'>=</span><span class='st'>"N_anom_norm_avg"</span>,<span class='kw'>anomaly_id</span><span class='kw'>=</span><span class='no'>anom2</span>[<span class='fl'>1</span>])
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
