@@ -11,9 +11,6 @@
 #' equivalent of \code{train}, where as \code{stranger} corresponds to \code{caretEnsemble}
 #' function and package.
 #'
-#' @section metadata:
-#' <TBD>
-#'
 #' @param data crazy data, ie outcome of a call to \code{\link{crazyfy}}.
 #' @param weird Weird method to be used - for the list of available methods, use \code{weird_list}.
 #' @param tuneGrid (optional) vector or data.frame of values for the parameters of the invoked method.
@@ -30,7 +27,7 @@
 #' library(stranger)
 #' data(iris)
 #' crazydata <- crazyfy(iris[,1:4])
-#' curious <- strange(crazydata, method="knn")
+#' curious <- strange(crazydata, weird="knn")
 #' }
 strange <- function(data, weird="knn",tuneGrid=NULL,colname=NULL,...){
 
