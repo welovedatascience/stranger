@@ -115,6 +115,7 @@ crazyfy <- function
 
 
   do_factor <- function(){
+    if (verbose) print("crazyfy: FACTOR")
     do.cols <- cols[colclasses %in% c("factor","character")]
     do.cols <- do.cols[!do.cols %in% id] # remove ID (in case character)
     meta.preprocess$factor <<- list(done=length(do.cols)>0, vars=do.cols)
@@ -130,6 +131,7 @@ crazyfy <- function
         out[[ifac]] <- ifac.out
       }
     }
+    if (verbose) cat("\nDone.")
     return(out)
   }
 
@@ -151,6 +153,7 @@ crazyfy <- function
         }
       }
     }
+    if (verbose) cat("\nDone.")
     return(out)
   }
 
@@ -175,7 +178,7 @@ crazyfy <- function
         else if (NA.method=="value") out[[ivar]][ivar.NA] <- NA.value
       }
     }
-
+    if (verbose) cat("\nDone.")
     return(out)
   }
 
@@ -189,6 +192,7 @@ crazyfy <- function
     for (ivar in do.cols){
       out[[ivar]] <- (out[[ivar]] - min(out[[ivar]],na.rm=TRUE))/max(out[[ivar]],na.rm=TRUE)
     }
+    if (verbose) cat("\nDone.")
     return(out)
   }
 
@@ -201,6 +205,7 @@ crazyfy <- function
     for (ivar in do.cols){
       out[[ivar]] <- scale(out[[ivar]])[,1]
     }
+    if (verbose) cat("\nDone.")
     return(out)
   }
 
