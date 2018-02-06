@@ -125,7 +125,7 @@ crazyfy <- function
         ifac.x[ifac.x==""] <- NA
         ifac.freqNA <- sum(is.na(ifac.x))
         ifac.freq <- table(ifac.x)[ifac.x]
-        ifac.out <- log(N / ifac.freq)
+        ifac.out <- log(ifac.N / ifac.freq)
         ifac.out[is.na(ifac.out)] <- log( 1+ ifac.N / ifac.freqNA)
         out[[ifac]] <- ifac.out
       }
