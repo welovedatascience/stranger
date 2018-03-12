@@ -9,10 +9,10 @@ crazyfy <- function
 #'
 #' @details
 #' See here this list of possible pre-treatment operations.
-#' Factors/characters are transformed into numeric by using term frequency–inverse
-#' document frequency approach (td-idf). Note that we use the smooth weighting IDF weight,
-#' ie. we take the log of 1+N/nt where N is the number of observations and nt the frequency
-#' for the specific term t.
+#' * factor: Factors/characters are transformed into numeric by using term frequency–inverse document frequency approach (td-idf). Note that we use the smooth weighting IDF weight, ie. we take the log of 1+N/nt where N is the number of observations and nt the frequency for the specific term t.
+#' * log: compute log(x-min(x)). Done for all numeric variables having a distribution with skewness greater than \code{skewness.cutpoint}
+#' * impute: impute missing values. Possible method, chosen with \code{NA.method} are using variable average or a specific value then provided by \code{NA.value}.
+#' * range: standardize variable: (x-min(x))/max(x).
 #'
 #' @param data Source data (data.frame or data.table).
 #' @param do character vector - List of processing steps to apply -- see details.
@@ -50,6 +50,7 @@ crazyfy <- function
   do = match.arg(do,c("factor","log","impute","range","scale"),several.ok = TRUE)
   assertthat::assert_that(is.numeric(skewness.cutpoint),msg="Parameter skewness.cutpoint must be a numeric value.")
 
+  if (is.vector(data)) data <- as.data.frame(data)
 
   ## Preparation of output
   out <- as.data.table(data)

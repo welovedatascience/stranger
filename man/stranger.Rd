@@ -10,7 +10,7 @@ strange(data, weird = "knn", tuneGrid = NULL, colname = NULL, ...)
 \arguments{
 \item{data}{crazy data, ie outcome of a call to \code{\link{crazyfy}}.}
 
-\item{weird}{Weird method to be used - for the list of available methods, use \code{weird_list}.}
+\item{weird}{Weird method to be used - for the list of available methods, use \code{weirds_list}.}
 
 \item{tuneGrid}{(optional) vector or data.frame of values for the parameters of the invoked method.}
 
@@ -33,16 +33,11 @@ When comparing \code{stranger} package with \code{caret}, \code{strange} functio
 equivalent of \code{train}, where as \code{stranger} corresponds to \code{caretEnsemble}
 function and package.
 }
-\section{metadata}{
-
-<TBD>
-}
-
 \examples{
 \dontrun{
 library(stranger)
 data(iris)
 crazydata <- crazyfy(iris[,1:4])
-curious <- strange(crazydata, method="knn")
+curious <- strange(crazydata, weird="knn")
 }
 }
