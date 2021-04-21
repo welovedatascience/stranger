@@ -5,8 +5,13 @@
 \alias{singular}
 \title{Normalize anomalies metrics and (eventually) stack them}
 \usage{
-singularize(strangerObject, methods = c("norm", "rank"), stacks = c("max",
-  "avg", "min", "damavg", "pruavg"), prefix = "N_anom", ...)
+singularize(
+  strangerObject,
+  methods = c("norm", "rank"),
+  stacks = c("max", "avg", "min", "damavg", "pruavg"),
+  prefix = "N_anom",
+  ...
+)
 }
 \arguments{
 \item{strangerObject}{An object build with \code{\link{stranger}} or \code{strangest}}

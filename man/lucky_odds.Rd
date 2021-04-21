@@ -4,9 +4,16 @@
 \alias{lucky_odds}
 \title{Quickly apply stanger full process flow to flag candidates anomalies applying one weird method}
 \usage{
-lucky_odds(data, n.anom = 5, ..., analysis.drop = NULL,
-  analysis.keep = NULL, weird = "knn", stack = "avg",
-  stack.method = "norm")
+lucky_odds(
+  data,
+  n.anom = 5,
+  ...,
+  analysis.drop = NULL,
+  analysis.keep = NULL,
+  weird = "knn",
+  stack = "avg",
+  stack.method = "norm"
+)
 }
 \arguments{
 \item{data}{Source data (data.frame or data.table).}

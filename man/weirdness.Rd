@@ -12,8 +12,7 @@
 \alias{weird_randomforest}
 \title{weirdness wrappers for available anomalies detection methods}
 \usage{
-weird_knn(data = NULL, info = FALSE, colname = NULL, simplify = "mean",
-  ...)
+weird_knn(data = NULL, info = FALSE, colname = NULL, simplify = "mean", ...)
 
 weird_lof(data = NULL, info = FALSE, colname = NULL, ...)
 
@@ -25,8 +24,7 @@ weird_pcout(data = NULL, info = FALSE, colname = NULL, ...)
 
 weird_isofor(data = NULL, info = FALSE, colname = NULL, ...)
 
-weird_kmeans(data = NULL, info = FALSE, colname = NULL, type = "means",
-  ...)
+weird_kmeans(data = NULL, info = FALSE, colname = NULL, type = "means", ...)
 
 weird_mahalanobis(data = NULL, info = FALSE, colname = NULL, ...)
 

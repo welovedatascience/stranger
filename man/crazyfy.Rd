@@ -4,9 +4,15 @@
 \alias{crazyfy}
 \title{Data preparation before detection of strangers}
 \usage{
-crazyfy(data, do = c("factor", "log", "impute", "range"), id = NULL,
-  skewness.cutpoint = 2, NA.method = "mean", NA.value = 0,
-  verbose = FALSE)
+crazyfy(
+  data,
+  do = c("factor", "log", "impute", "range"),
+  id = NULL,
+  skewness.cutpoint = 2,
+  NA.method = "mean",
+  NA.value = 0,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{data}{Source data (data.frame or data.table).}

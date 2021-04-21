@@ -7,17 +7,20 @@
 \alias{plot.singular}
 \title{Data visualizations of anomaly score locally around a specific data point}
 \usage{
-\method{plot}{stranger}(x, type = "cluster", id = ".id", score = NULL,
-  anomaly_id = NULL, ...)
+\method{plot}{stranger}(x, type = "cluster", id = ".id", score = NULL, anomaly_id = NULL, ...)
 
-\method{plot}{fortifiedanomaly}(x, type = "feature_importance", id = ".id",
-  anomaly_id = NULL, score = NULL, ...)
+\method{plot}{fortifiedanomaly}(
+  x,
+  type = "feature_importance",
+  id = ".id",
+  anomaly_id = NULL,
+  score = NULL,
+  ...
+)
 
-\method{plot}{anomalies}(x, type = "feature_importance", id = ".id",
-  anomaly_id = NULL, ...)
+\method{plot}{anomalies}(x, type = "feature_importance", id = ".id", anomaly_id = NULL, ...)
 
-\method{plot}{singular}(x, type = "cluster", id = ".id", score = NULL,
-  anomaly_id = NULL, ...)
+\method{plot}{singular}(x, type = "cluster", id = ".id", score = NULL, anomaly_id = NULL, ...)
 }
 \arguments{
 \item{x}{is either of class dataframe, stranger or anomaly. It contains the observations; each row represents an observation

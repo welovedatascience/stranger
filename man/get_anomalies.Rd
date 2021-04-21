@@ -4,8 +4,16 @@
 \alias{get_anomalies}
 \title{Retrieve anomalies}
 \usage{
-get_anomalies(x, rank.prop = 0.05, nmin = 10, nmax = 300,
-  stack.use = "avg", method.use = "norm", verbose = TRUE, ...)
+get_anomalies(
+  x,
+  rank.prop = 0.05,
+  nmin = 10,
+  nmax = 300,
+  stack.use = "avg",
+  method.use = "norm",
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{stranger object (before of after singularize)}

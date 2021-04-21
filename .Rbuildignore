@@ -1,9 +1,10 @@
 ^.*\.Rproj$
-^\.Rproj\.user$
-^\docs$
-^\misc$
+^\.Rproj/.user$
+^/docs$
+^/misc$
 ^docs$
 cran-comments.md
-^\data\Readme.html  
+^/data/Readme.html  
 _stranger_build_website.R
 README.Rmd
+^\.Rproj\.user$

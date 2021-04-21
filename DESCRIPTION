@@ -1,17 +1,17 @@
 Package: stranger
 Type: Package
-Title: Simple Toolkit in R for ANomalies Get, Explain and Report
-Version: 0.3.3
+Title: Simple Toolkit in R for Anomalies Get, Explain and Report
+Version: 0.3.4
 Authors@R: c(
     person("Eric", "Lecoutre", email = "eric.lecoutre@welovedatascience.com", role = c("aut","cre")),
-    person("Sven", "Wauters", email = "sven.wauters@welovedatascience.com", role = "aut"))
+    person("Sven", "Wauters", email = "sven.wauters@gmail.com", role = "aut"))
 Maintainer: Eric Lecoutre <eric.lecoutre@welovedatascience.com>
 Description: Framework for unsupervised anomalies detection that simplifies the user experience because the one does not need to be concerned with the many packages and functions that are required. Package 'stranger' acts as a wrapper around existing packages ("a la 'caret' for modeling") and provides a clean and uniform toolkit for evaluation/explain/reporting purposes.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
-URL: https://welovedatascience.github.io/stranger, https://github.com/welovedatascience/stranger
+RoxygenNote: 7.1.1
+URL: https://welovedatascience.github.io/stranger/, https://github.com/welovedatascience/stranger
 Suggests: knitr,
           rmarkdown,
           prettydoc,
