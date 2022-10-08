@@ -1,0 +1,9 @@
+pandoc: 2.19.2
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  stranger_for_the_impatient: stranger_for_the_impatient.html
+  stranger_weirds_methods: stranger_weirds_methods.html
+  working_with_weirds: working_with_weirds.html
+last_built: 2022-10-08T15:22Z
+
