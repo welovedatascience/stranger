@@ -21,8 +21,19 @@ modefreq <- function(x) {
   return(list(mode=mode,freq=freq))
 }
 
-# #'@export
-# install.weirdness <- function(upgrade=FALSE,github=TRUE,...){
-#   # check with weirds and (re)install packages
-#   # ... : paramaters to be passed to install or install_github (if github=TRUE)
-# }
+#' @export
+install.weirdness <- function(github=TRUE,...){
+  # check with weirds and (re)install packages
+  # ... : paramaters to be passed to install or install_github (if github=TRUE)
+  weirds <- as.data.frame(weirds_list()$detail[,3:5])
+  
+  pkg_cran <- unlist(weirds[weirds$package.source=='CRAN','package'])
+  sapply(pkg_cran, install.packages, ...)
+  
+  pkg_github <- unlist(weirds[weirds$package.source=='github','package.github'])
+  if (github){
+    sapply(pkg_github, remotes::install_github, ...)  
+  }
+  
+  
+}
