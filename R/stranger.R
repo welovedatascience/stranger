@@ -11,24 +11,25 @@
 #' equivalent of \code{train}, where as \code{stranger} corresponds to \code{caretEnsemble}
 #' function and package.
 #'
+#'
 #' @param data crazy data, ie outcome of a call to \code{\link{crazyfy}}.
-#' @param weird Weird method to be used - for the list of available methods, use \code{weirds_list}.
+#' @param weird Weird method to be used - for the list of available methods, use \code{weird_list}.
 #' @param tuneGrid (optional) vector or data.frame of values for the parameters of the invoked method.
 #' @param colname (optional) character - name to be given to the resulting anomaly metric computation (distance/probability).
+#' @param weirdList List of weirds methods names.
 #' @param \dots additional parameters to be passed to the invoked \emph{weird} method.
 #'
 #' @return stranger object -- that is a data.table with attributes and overloaded with class stranger
 #'
 #' @aliases stranger
-#' @rdname stranger
+#'
 #'
 #' @examples
-#' \dontrun{
 #' library(stranger)
 #' data(iris)
 #' crazydata <- crazyfy(iris[,1:4])
 #' curious <- strange(crazydata, weird="knn")
-#' }
+#' @export
 strange <- function(data, weird="knn",tuneGrid=NULL,colname=NULL,...){
 
   # equivalent to caret "train"
@@ -108,21 +109,25 @@ tuneCheck <- function(x)
   return(x)
 }
 
-stranger <- function(data,methodList=c("knn","lof"), tuneList=NULL,...){
+
+setOldClass("stranger") 
+#' @exportClass stranger 
+#' @export
+stranger <- function(data,weirdList=c("knn","lof"), tuneList=NULL,...){
   ## inspired from caretEnsemble:: caretList
   ## equivalent to caretList or combining several weirds methods with merge
   ## tuneList: list of weird(method="",params=,...)
-  if (is.null(tuneList) & is.null(methodList)) {
-    stop("Please either define a methodList or tuneList")
+  if (is.null(tuneList) & is.null(weirdList)) {
+    stop("Please either define a weirdList or tuneList")
   }
-  if (!is.null(methodList) & any(duplicated(methodList))) {
-    warning("Duplicate entries in methodList.  Using unique methodList values.")
-    methodList <- unique(methodList)
+  if (!is.null(weirdList) & any(duplicated(weirdList))) {
+    warning("Duplicate entries in weirdList.  Using unique weirdList values.")
+    weirdList <- unique(weirdList)
   }
   if (!is.null(tuneList)) assertthat::assert_that(all(sapply(tuneList,function(w)inherits(w,"weirdSpecs"))),msg="tuneList must be a list with elements being built by weird function")
-  if (!is.null(methodList)) {
-    methodCheck(methodList)
-    tuneList_extra <- lapply(methodList, weird)
+  if (!is.null(weirdList)) {
+    methodCheck(weirdList)
+    tuneList_extra <- lapply(weirdList, weird)
     tuneList <- c(tuneList_extra,tuneList)
   }
 
@@ -139,17 +144,17 @@ stranger <- function(data,methodList=c("knn","lof"), tuneList=NULL,...){
 
   out <- Reduce("merge",weirdList)
 
-  # nMethods <- length(methodList)+length(tuneList)
+  # nMethods <- length(weirdList)+length(tuneList)
   # availableMethods <-weirds()
-  # assert_that(nMethods>0, msg="No weird method invoked. Use either methodList or tuneList (or both).")
-  # if (length(methodList)>0){
-  #   check <- sapply(methodList,
+  # assert_that(nMethods>0, msg="No weird method invoked. Use either weirdList or tuneList (or both).")
+  # if (length(weirdList)>0){
+  #   check <- sapply(weirdList,
   #                   function(im){
   #                     assert_that(im %in% availableMethods$methods,
   #                                 msg=paste("Weird method",im, "is not available"))
   #                   })
   #
-  #   check <- sapply(methodList,
+  #   check <- sapply(weirdList,
   #                   function(im){
   #                     assert_that(availableMethods$detail[paste("weird",im,sep='_'),"installed"]=="*",
   #                                 msg=paste("Weird method",im, "requires package not installed - check requirements with weirds() function. Eventually considrr using install.weirdness()."))

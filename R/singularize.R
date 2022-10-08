@@ -1,13 +1,13 @@
-#' Normalize anomalies metrics and (eventually) stack them
+#' Singularize: derive metrics after scores noramlisation and eventual stacking
+#'
+#' Prepare from weirds normalized/stacked metric
 #' 
-#' \code{singularize} derives normalized/standardized versions of different weirds contained in a stranger object so that they are directly comparable and then propose various aggregated measures (stacking).
-#' 
-#'@param strangerObject An object build with \code{\link{stranger}} or \code{strangest}
-#'@param methods character vector of standardization methods: norm (normalize) and rank (ranking version). By default, both methods are used.
-#'@param stacks character vectors of stacked versions. Note that some methods require more than 2 weirds metrics to be used
-#'@param prefix default prefix used to name generated new metrics
-#'@param \dots Additional parameters - Currently not used.
-#'@aliases singular
+#' @param strangerObject stranger object (before singularization)
+#' @param methods normalisation method to be used (several possible)
+#' @param stacks stacking methods to be used (several possible)
+#' @param prefix prefix string to be used for new columns names
+#'  
+#' @export
 singularize <- function(strangerObject,
                         methods=c("norm","rank"),
                         stacks=c("max","avg","min","damavg", "pruavg"),
