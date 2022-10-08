@@ -1,4 +1,3 @@
-crazyfy <- function
 #--------------------------------------------------------------------------------
 #' Data preparation before detection of strangers
 #'
@@ -31,6 +30,9 @@ crazyfy <- function
 #' data(iris)
 #' crazy <- crazyfy(iris[,1:4])
 #---------------------------------------------------------------------------------
+#' @export
+#' 
+crazyfy <- function
 (
   data,
   do=c("factor","log","impute","range"),
