@@ -1,3 +1,4 @@
+#' @export
 merge.stranger <- function(x,y,fix.names=TRUE,...){
   assertthat::assert_that(inherits(x,"stranger"),msg="x is not a stranger object.")
   assertthat::assert_that(inherits(y,"stranger"),msg="y is not a stranger object.")
