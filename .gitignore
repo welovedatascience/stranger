@@ -3,3 +3,8 @@
 .RData
 .Ruserdata
 stranger.Rproj
+.Rbuildignore
+_dependencies.R
+inst/doc
+_stranger_build_website.R
+cran-comments.md
