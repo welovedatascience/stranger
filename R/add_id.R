@@ -13,6 +13,7 @@
 #' library(stranger)
 #' data(iris)
 #' (iris.id <- add_id(iris))
+#' @export
 add_id <- function(data){
   assertthat::assert_that(inherits(data,"data.frame"),msg="data must be a data.frame or a data.table")
   assertthat::assert_that(ncol(data)>0 & nrow(data)>0,msg="data must be non empty")
