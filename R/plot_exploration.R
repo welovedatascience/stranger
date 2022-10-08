@@ -26,17 +26,17 @@ explore <- function(data, type="histogram",keep=NULL,drop=NULL,...){
     data <- as.data.frame(data)
     message("Your data has been converted to a dataframe to be compatible with ggplot function.")
   }
-
+  
   if (any(keep%in% drop)) stop("Can't assign variables  both in  keep and drop arguments")
   if (!is.null(keep)) data <- data[, (colnames(data)%in% keep),drop=FALSE]
   if (!is.null(drop)) data <- data[,!(colnames(data)%in% drop),drop=FALSE]
-
+  
   ## anyway remove any potential .id column
   if (".id" %in% colnames(data)){
     data <- data[,!(colnames(data)%in% ".id"),drop=FALSE]
     message(".id column removed.")
   }
-
+  
   assertthat::assert_that(ncol(data)>0,msg="No more column remaining for exploration; please change keep/drop.")
   get(paste("explore",type,sep="_"))(data,...)
 }
@@ -44,26 +44,26 @@ explore <- function(data, type="histogram",keep=NULL,drop=NULL,...){
 explore_histogram <- function(data,col.fill="steelblue",bins=50,...){
   #assertthat::assert_that(require(ggplot2),msg="ggplot2 package required.")
   ## Take colomns name of numeric versus factor features
-
+  
   cn <- colnames(data)
   colclasses <- sapply(data,class)
   numerical_feature <- cn[colclasses %in% c("integer","numeric")]
   factor_feature    <- cn[colclasses %in% c("character","factor")]
   # ensure we deal with thoses classes (for instance drop date/time variables)
-
+  
   temp <- data[,cn %in% c(numerical_feature,factor_feature),drop=FALSE]
-
+  
   nc <- ncol(temp)
   assertthat::assert_that(nc>0,msg="No more column in data")
   column_number <- round(sqrt(nc),0)
-
+  
   plots <- vector(mode="list",length=nc)
-
+  
   cn <- colnames(temp)
   names(plots) <- cn
-
+  
   for (col in cn ){
-
+    
     if (col %in% numerical_feature){
       # numeric: use histogram
       pl <- ggplot(temp) + geom_histogram(
@@ -73,7 +73,7 @@ explore_histogram <- function(data,col.fill="steelblue",bins=50,...){
       pl  <- ggplot(temp) + geom_bar(
         aes_string(x=col),stat = "count",fill=col.fill)
     }
-
+    
     pl <- pl +
       labs(x=col) +
       theme_bw() +
@@ -82,22 +82,22 @@ explore_histogram <- function(data,col.fill="steelblue",bins=50,...){
             axis.title.y=element_blank(),
             axis.ticks.x=element_blank(),
             axis.ticks.y=element_blank())
-
+    
     plots[[col]] <- pl
   }
-
+  
   multiplot(plotlist = plots, cols=column_number)
 }
 
 # 2) Helper function to plot a matrix of correlation
 explore_correlation <- function(data,...){
-
+  
   cn <- colnames(data)
   colclasses <- sapply(data,class)
   numerical_feature <- cn[colclasses %in% c("integer","numeric")]
   assertthat::assert_that(length(numerical_feature)>0,msg="No more numeric variable")
   data <- data[,numerical_feature,drop=FALSE]
-
+  
   # MAIN PART: Prepare data and plot
   data %>%
     ## Only numerical
@@ -106,25 +106,25 @@ explore_correlation <- function(data,...){
     cor(...) %>%
     round(digits = 2) %>%
     as.data.frame() %>%
-
+    
     ## Reorder correlation
     #reorder_cormat() %>%
-
+    
     ## Add rownames
     dplyr::mutate(var1 = rownames(.)) %>%
-
+    
     ## Remove upper triangle
     #get_upper_tri() %>%
-
+    
     ## Reshape
     tidyr::gather(key = var2, value = value, - var1, na.rm = TRUE ) -> tmp
-
+  
   # put missing for diagonal
   tmp[tmp[,1]==tmp[,2],"value"] <- NA
-
-
+  
+  
   ## Basic histogram plot
-
+  
   ggplot(tmp,aes(x = var2, y= var1 , fill = value)) +
     geom_tile(color = "gray", size = 1) +
     scale_fill_gradient2(low = "red", high = "green", mid = "white",
@@ -140,7 +140,7 @@ explore_correlation <- function(data,...){
       panel.grid.major = element_blank(),
       panel.background = element_blank(),
       axis.ticks = element_blank())
-
+  
 }
 
 
@@ -159,12 +159,12 @@ explore_correlation <- function(data,...){
 multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   # library(grid)
   requireNamespace(grid)
-
+  
   # Make a list from the ... arguments and plotlist
   plots <- c(list(...), plotlist)
-
+  
   numPlots = length(plots)
-
+  
   # If layout is NULL, then use 'cols' to determine layout
   if (is.null(layout)) {
     # Make the panel
@@ -173,20 +173,20 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
     layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
                      ncol = cols, nrow = ceiling(numPlots/cols))
   }
-
+  
   if (numPlots==1) {
     print(plots[[1]])
-
+    
   } else {
     # Set up the page
     grid.newpage()
     pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
-
+    
     # Make each plot, in the correct location
     for (i in 1:numPlots) {
       # Get the i,j matrix positions of the regions that contain this subplot
       matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
-
+      
       print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
                                       layout.pos.col = matchidx$col))
     }
