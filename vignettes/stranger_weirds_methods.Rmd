@@ -64,9 +64,7 @@ infow <- function(method){
 infow("abod")
 ```
 
-Note: during submission on CRAN, it seems `abodOutlier` package was not available. 
-
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 iris %>% 
   lucky_odds(n.anom=6, analysis.drop="Species", weird="abod") %>%
   anoplot(title="abod - default parameters")
@@ -146,14 +144,14 @@ Usage here is to learn an autoencoder then apply it to same data and look at hig
 
 ## isofor
 
-Note: isolatation forest method is not run in this vignette (non-CRAN package)
+
 
 
 ```{r, echo=FALSE}
 infow("isofor")
 ```
 
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 iris %>% 
   lucky_odds(n.anom=6, analysis.drop="Species", weird="isofor") %>%
   anoplot(title="isofor - default parameters")
@@ -278,19 +276,19 @@ iris %>%
 
 Default values for `lof` parameters -- see `?lof`:
 
-*  k=10
+*  minPts=5
 *  ... other parameters to be passed to `kNN` from `dbscan` package (search, bucketSize...).
 
 Extra parameters used in `stranger` for this weird: none.
 
-Default naming convention for generated metric based on _k_.
+Default naming convention for generated metric based on _minPts_.
 
 
 ```{r}
 
 iris %>% 
-  lucky_odds(n.anom=6, analysis.drop="Species",weird="lof",k=8, search="linear") %>% 
-  anoplot(title="lof - k=8 - linear kNN")
+  lucky_odds(n.anom=6, analysis.drop="Species",weird="lof",minPts=5, search="linear") %>% 
+  anoplot(title="lof - minPts=8 - linear kNN")
 ```
  From `lof` help:
  
