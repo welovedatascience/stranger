@@ -1,5 +1,7 @@
 ---
-output: github_document
+output:
+  md_document:
+    variant: markdown_github
 ---
 
 ```{r, echo = FALSE}
@@ -20,7 +22,7 @@ suppressMessages(library(stranger))
 Obviously, to be able to exploit `stranger`, user will need to have various packages installed -- those ones containing computational routines.
 
 
-```{r echo=FALSE, eval=FALSE}
+```{r echo=FALSE, eval=TRUE}
 w=weirds_list()$detail
 knitr::kable(w[,c(1:4,6,9)],row.names = FALSE)
 ```
