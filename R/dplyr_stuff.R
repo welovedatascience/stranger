@@ -7,13 +7,11 @@
 
 #' dplyr methods
 #'
-#' Methods to use with dplyr filter function
-#' @param .data object (class: sranger or singular)
-#' @param \dots filter definition
 
 
 ## NEW REQUIREMENT dplyr>...0.7.4
 #' @rdname dplyr-methods
+#' @export
 filter.stranger <- function(.data, ...) {    # dplyr 0.7.4+
   cl <- class(.data)
   out <-dplyr::filter(as.data.frame(.data),...)
@@ -23,6 +21,7 @@ filter.stranger <- function(.data, ...) {    # dplyr 0.7.4+
 }
 
 #' @rdname dplyr-methods
+#' @export
 filter.singular <- function(.data,...){     # dplyr 0.7.4+
   cl <- class(.data)
   out <-dplyr::filter(as.data.frame(.data),...)
