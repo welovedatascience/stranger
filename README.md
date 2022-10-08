@@ -14,7 +14,7 @@ stranger basics
 Using `stranger`, user has at disposal an analysis workflow.
 
 <hr/>
-![Analysis workflow](https://raw.githubusercontent.com/welovedatascience/stranger/master/man/figures/stranger_process_flow.png)
+![Analysis workflow](man/figures/stranger_process_flow.png)
 <hr/>
 Main functions associated with proposed analysis workflow deal with:
 
@@ -56,4 +56,3 @@ TODO
 -   Add weird for H2O autoencode
 -   add install\_weirdness to install all weird packages
 -   add `get_info` methods for every class
--   submit to CRAN
