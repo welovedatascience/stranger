@@ -17,7 +17,7 @@
 #' For every \code{weird} function, possible parameters in \dots should be checked by looking to the help of the underlying function. Some special common parameters are \code{info} to be set to TRUE to have information about the method, inclusing the name and package of the main underlying function. Another common parameter  is  \code{colname} that allow to overide default prefix name used for the outcome of the computation.
 #'
 #' Methods specific parameters, additional parameters may be used (for instance \code{simplify} for _knn_ method or \code{type} for kmeans. See the vignette describing the list of available _weirds_ methods in base package.
-
+#'@export
 weird <- function(method, ...){
   # will build a call to weird_method (after checks of existence) to be used in
   # caretList equivalent function caretEnsemble for tuneList and caretModelSpec:
@@ -36,7 +36,7 @@ weird <- function(method, ...){
 #' @param onlynames - logical: should be return some details or only the nickname
 #' of methods to be used in \code{\link{strange}}, \code{\link{stranger}},
 #' \code{\link{weird}} or \code{\link{lucky_odds}}.
-
+#' @export
 weirds_list <- function(onlynames=FALSE){
   infos <- t(sapply(apropos(what="weird_",mode="function",ignore.case=FALSE),
                     function(str_foo){
@@ -81,7 +81,7 @@ methodCheck <- function(m){
 #' to nearest k points.
 #' @param \dots additional parameters to be passed to weird method, for instance k for knn
 #' @rdname weirdness
-
+#' @export
 weird_knn <- function(data=NULL,info=FALSE,colname=NULL,simplify="mean",...){
 
   # manage default parameters values
@@ -137,7 +137,7 @@ weird_knn <- function(data=NULL,info=FALSE,colname=NULL,simplify="mean",...){
 # weird_abod: ! normalization function
 
 #' @rdname weirdness
-
+#' @export
 weird_lof <- function(data=NULL,info=FALSE,colname=NULL,...){
   if (!info & is.null(data)) {
     info <- TRUE
@@ -149,8 +149,8 @@ weird_lof <- function(data=NULL,info=FALSE,colname=NULL,...){
   weird.args <-list(...)
 
   # manage default parameters values
-  if (!hasArg("k")) {
-    weird.args$k=10
+  if (!hasArg("minPts")) {
+    weird.args$minPts=5
   }
 
 
@@ -177,7 +177,7 @@ weird_lof <- function(data=NULL,info=FALSE,colname=NULL,...){
 
   comp <- data.frame(x=do.call(meta$foo,weird.args))
 
-  colname <- paste(colname,"k",weird.args$k,sep="_")
+  colname <- paste(colname,"minPts",weird.args$minPts,sep="_")
   colnames(comp) <- colname
   meta$colname  <- colname
 
@@ -188,7 +188,7 @@ weird_lof <- function(data=NULL,info=FALSE,colname=NULL,...){
 }
 
 #' @rdname weirdness
-
+#' @export
 weird_autoencode <- function(data=NULL,info=FALSE,colname=NULL,...){
   if (!info & is.null(data)) {
     info <- TRUE
@@ -256,7 +256,7 @@ weird_autoencode <- function(data=NULL,info=FALSE,colname=NULL,...){
 
 
 #' @rdname weirdness
-
+#' @export
 weird_abod <- function(data=NULL,info=FALSE,colname=NULL,...){
   if (!info & is.null(data)) {
     info <- TRUE
@@ -316,7 +316,7 @@ weird_abod <- function(data=NULL,info=FALSE,colname=NULL,...){
 
 
 #' @rdname weirdness
-
+#' @export
 weird_pcout <- function(data=NULL,info=FALSE,colname=NULL,...){
   if (!info & is.null(data)) {
     info <- TRUE
@@ -380,7 +380,7 @@ weird_pcout <- function(data=NULL,info=FALSE,colname=NULL,...){
 
 
 #' @rdname weirdness
-
+#' @export
 weird_isofor <- function(data=NULL,info=FALSE,colname=NULL,...){
   if (!info & is.null(data)) {
     info <- TRUE
@@ -396,9 +396,12 @@ weird_isofor <- function(data=NULL,info=FALSE,colname=NULL,...){
   if (!hasArg("nt")) weird.args$nt=100
   if (!hasArg("phi")) weird.args$phi=min(nrow(data)-1,256)
   if (!hasArg("seed")) weird.args$seed=1234
-  if (!hasArg("multicore")) weird.args$multicore=FALSE
+  # if (!hasArg("multicore")) weird.args$multicore=FALSE
   if (!hasArg("replace_missing")) weird.args$replace_missing=TRUE
   if (!hasArg("sentinel")) weird.args$sentinel=-9999999999
+  if (!hasArg("ncolsample")) weird.args$ncolsample=NULL
+  
+  
 
 
   if (is.null(colname)) colname="isofor" # default prefix name for this weird method
@@ -440,8 +443,7 @@ weird_isofor <- function(data=NULL,info=FALSE,colname=NULL,...){
 
 
 #' @rdname weirdness
-#' @param type one of "means" or "euclidian". See \code{kmeans} from \code{stats} package.
-
+#' @export
 weird_kmeans <- function(data=NULL,info=FALSE,colname=NULL,type="means",...){
   if (!info & is.null(data)) {
     info <- TRUE
@@ -469,7 +471,7 @@ weird_kmeans <- function(data=NULL,info=FALSE,colname=NULL,type="means",...){
     weird_method=paste0("kmeans (",weird.args$type,")"),
     name="kmeans",
     package="stats",
-    package.source="CRAN",
+    package.source="rbase",
     package.github=NULL,
     foo="kmeans",
     type="distance",
@@ -517,7 +519,7 @@ weird_kmeans <- function(data=NULL,info=FALSE,colname=NULL,type="means",...){
 
 
 #' @rdname weirdness
-
+#' @export
 weird_mahalanobis <- function(data=NULL,info=FALSE,colname=NULL,...){
   if (!info & is.null(data)) {
     info <- TRUE
@@ -537,7 +539,7 @@ weird_mahalanobis <- function(data=NULL,info=FALSE,colname=NULL,...){
     weird_method="Mahalanobis distance",
     name="mahalanobis",
     package="stats",
-    package.source="CRAN",
+    package.source="rbase",
     package.github=NULL,
     foo="mahalanobis",
     type="distance",
@@ -569,7 +571,7 @@ weird_mahalanobis <- function(data=NULL,info=FALSE,colname=NULL,...){
 
 
 #' @rdname weirdness
-
+#' @export
 weird_randomforest <- function(data=NULL,info=FALSE,colname=NULL,...){
   if (!info & is.null(data)) {
     info <- TRUE
