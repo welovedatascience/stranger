@@ -10,22 +10,22 @@
 #'
 #' @param data  Source data (data.frame or data.table).
 #' @param n.anom Number of anomaly candidate records to flags.
-#' @param \dots Additional parameters to be passed to weird method (\code{analysis.method}).
+#' @param \dots{} Additional parameters to be passed to weird method (\code{analysis.method}).
 #' @param analysis.drop Character - set of variables to be removed from analysis (metrics computations by weird).
 #' @param analysis.keep Character - set of variables to be kept for analyis  (metrics computations by weird).
-#' @param weird weird method to use for metric computation
 #' @param stack Stacking metric passed to \code{\link{get_anomalies}}.
 #' @param stack.method Stacking selection method passed to  \code{\link{get_anomalies}}.
 #'
 #'@section Selecting variables:
 #'If your source data contains variables you don't want to use in metrics computations - weird method: knnw, autoencode...,
-#'then you have to first select analysis variables. You can thos this use either \code{analysis.keep} OR \code{analysis.drop}.
+#'then you have to first select analysis variables. You can thos this use either \code{analysis.keep} OR \code{analyisis.drop}.
 #'Those two parameters are mutually exclusive.
 # @examples
 #' library(stranger)
 #' data(iris)
 #' anomalies <- lucky_odds(iris[,1:4])
 #' table(anomalies$flag_anomaly)
+#' @export
 lucky_odds <- function(data,n.anom=5,..., analysis.drop=NULL,analysis.keep=NULL,weird="knn",
                        stack="avg", stack.method="norm"){
   data.id <- add_id(data)
