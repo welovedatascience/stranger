@@ -23,10 +23,6 @@
 \method{plot}{singular}(x, type = "cluster", id = ".id", score = NULL, anomaly_id = NULL, ...)
 }
 \arguments{
-\item{x}{is either of class dataframe, stranger or anomaly. It contains the observations; each row represents an observation
-and each variable is stored in one column. It must have at least one column with IDs and one column with the anomaly
-score for each ID.}
-
 \item{type}{is the name of the visualization;
 (1) A hierarchical clustering, named "cluster", showing among the top n-anomaly which records belongs to the same cluster
 a specific record. Finding the commun pattern amoung the cluster may lead to the orign of of the specifi record score.
@@ -44,7 +40,28 @@ The shape indicates how extrem and how frequent is the anomaly score of a speici
 
 \item{anomaly_id}{is the record ID you want to investigate}
 
-\item{\dots}{Additional parameters to pass}
+\item{data}{is either of class dataframe, stranger or anomaly. It contains the observations; each row represents an observation
+and each variable is stored in one column. It must have at least one column with IDs and one column with the anomaly
+score for each ID.}
+
+\item{check}{logical indicating if object data should be checked for validity. The default is TRUE, this check is not necessary
+when data is known to be valid such as when it is the direct result of stranger().}
+
+\item{keep}{character vector: names of columns to keep (filter)}
+
+\item{drop}{character vector: names of columns to drop (filter)}
+
+\item{n.cluster}{is the number of cluster groups to emphasis.
+This parameter must only be specified with type ="cluster".}
+
+\item{n.anom}{is the number of top anomalies to be considered.
+This parameter must only be specified with type ="cluster".}
+
+\item{k}{is the number of neighbours to be considered. This parameter must always be specified,
+except with type = "cluster".}
+
+\item{n_label}{specifies the number of data point to be labelled in the plot.
+This parameter must only be specified with type ="scores_decline".}
 }
 \value{
 A plot
@@ -65,20 +82,18 @@ This may help to identify the features behind the score.
 (4) A dots plot, names "score_decline", showing the decrease in anomaly score among the k nearest neighbours of a specific record.
 The shape indicates how extrem and how frequent is the anomaly score of a speicif record amoung its neighbours.
 (5) A Regression tree, named "regression_tree", showing the roots to high score around a specific record.
-
-Extra parameters that can be used in \dots:
-\itemize{
-\item check logical indicating if object data should be checked for validity. The default is TRUE, this check is not necessary
-when data is known to be valid such as when it is the direct result of stranger().
-\item  keep character vector: names of columns to keep (filter)
-\item  drop character vector: names of columns to drop (filter)
-\item  n.cluster is the number of cluster groups to emphasis.
-This parameter must only be specified with type ="cluster".
-\item  n.anom is the number of top anomalies to be considered.
-This parameter must only be specified with type ="cluster".
-\item  k is the number of neighbours to be considered. This parameter must always be specified,
-except with type = "cluster".
-\item  n_label specifies the number of data point to be labelled in the plot.
-This parameter must only be specified with type ="scores_decline".
+}
+\examples{
+\dontrun{
+data(iris)
+library(dplyr)
+data <- iris \%>\% select(-Species) \%>\% crazyfy()
+anom1<- data \%>\% strange()
+result <- fortify(anom1)
+investigate(result, type="cluster", id = ".id", score = "knn_k_10_mean", anomaly_id = 10, n.cluster = 4, n.anom = 50)
+investigate(result, type="neighbours", id = ".id", score = "knn_k_10_mean", anomaly_id = 10, k = 200)
+investigate(result, type="feature_importance", id = ".id", score = "knn_k_10_mean", anomaly_id = 10, k = 100)
+investigate(result, type="scores_decline", id = ".id", score = "knn_k_10_mean", anomaly_id = 10, k = 50, n_label = 10)
+investigate(result, type="regression_tree", id = ".id", score = "knn_k_10_mean", anomaly_id = 10, k = 1000)
 }
 }

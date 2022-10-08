@@ -10,13 +10,15 @@ strange(data, weird = "knn", tuneGrid = NULL, colname = NULL, ...)
 \arguments{
 \item{data}{crazy data, ie outcome of a call to \code{\link{crazyfy}}.}
 
-\item{weird}{Weird method to be used - for the list of available methods, use \code{weirds_list}.}
+\item{weird}{Weird method to be used - for the list of available methods, use \code{weird_list}.}
 
 \item{tuneGrid}{(optional) vector or data.frame of values for the parameters of the invoked method.}
 
 \item{colname}{(optional) character - name to be given to the resulting anomaly metric computation (distance/probability).}
 
 \item{\dots}{additional parameters to be passed to the invoked \emph{weird} method.}
+
+\item{weirdList}{List of weirds methods names.}
 }
 \value{
 stranger object -- that is a data.table with attributes and overloaded with class stranger
@@ -34,10 +36,8 @@ equivalent of \code{train}, where as \code{stranger} corresponds to \code{caretE
 function and package.
 }
 \examples{
-\dontrun{
 library(stranger)
 data(iris)
 crazydata <- crazyfy(iris[,1:4])
 curious <- strange(crazydata, weird="knn")
-}
 }

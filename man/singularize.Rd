@@ -2,8 +2,7 @@
 % Please edit documentation in R/singularize.R
 \name{singularize}
 \alias{singularize}
-\alias{singular}
-\title{Normalize anomalies metrics and (eventually) stack them}
+\title{Singularize: derive metrics after scores noramlisation and eventual stacking}
 \usage{
 singularize(
   strangerObject,
@@ -14,16 +13,14 @@ singularize(
 )
 }
 \arguments{
-\item{strangerObject}{An object build with \code{\link{stranger}} or \code{strangest}}
+\item{strangerObject}{stranger object (before singularization)}
 
-\item{methods}{character vector of standardization methods: norm (normalize) and rank (ranking version). By default, both methods are used.}
+\item{methods}{normalisation method to be used (several possible)}
 
-\item{stacks}{character vectors of stacked versions. Note that some methods require more than 2 weirds metrics to be used}
+\item{stacks}{stacking methods to be used (several possible)}
 
-\item{prefix}{default prefix used to name generated new metrics}
-
-\item{\dots}{Additional parameters - Currently not used.}
+\item{prefix}{prefix string to be used for new columns names}
 }
 \description{
-\code{singularize} derives normalized/standardized versions of different weirds contained in a stranger object so that they are directly comparable and then propose various aggregated measures (stacking).
+Prepare from weirds normalized/stacked metric
 }

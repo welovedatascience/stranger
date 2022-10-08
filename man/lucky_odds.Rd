@@ -20,17 +20,15 @@ lucky_odds(
 
 \item{n.anom}{Number of anomaly candidate records to flags.}
 
-\item{\dots}{Additional parameters to be passed to weird method (\code{analysis.method}).}
-
 \item{analysis.drop}{Character - set of variables to be removed from analysis (metrics computations by weird).}
 
 \item{analysis.keep}{Character - set of variables to be kept for analyis  (metrics computations by weird).}
 
-\item{weird}{weird method to use for metric computation}
-
 \item{stack}{Stacking metric passed to \code{\link{get_anomalies}}.}
 
 \item{stack.method}{Stacking selection method passed to  \code{\link{get_anomalies}}.}
+
+\item{\dots{}}{Additional parameters to be passed to weird method (\code{analysis.method}).}
 }
 \description{
 \code{lucky_odds} is basically a wrapper around the process: \code{\link{add_id}} --> \code{\link{crazyfy}}
@@ -44,7 +42,7 @@ are not available for further analysis.
 \section{Selecting variables}{
 
 If your source data contains variables you don't want to use in metrics computations - weird method: knnw, autoencode...,
-then you have to first select analysis variables. You can thos this use either \code{analysis.keep} OR \code{analysis.drop}.
+then you have to first select analysis variables. You can thos this use either \code{analysis.keep} OR \code{analyisis.drop}.
 Those two parameters are mutually exclusive.
 library(stranger)
 data(iris)

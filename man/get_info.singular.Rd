@@ -6,11 +6,6 @@
 \usage{
 \method{get_info}{singular}(x, ...)
 }
-\arguments{
-\item{x}{One object from stranger package}
-
-\item{\dots}{Additional parameters - not used currently}
-}
 \value{
 (invisible) list with two componenents: metrics and standardizations. First slot consists in metrics attributes (corresponding weird info), second slot is a vector containing the names of aggregated standardized derived metrics.
 }
