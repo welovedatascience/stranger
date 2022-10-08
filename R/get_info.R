@@ -22,7 +22,7 @@ get_info.default <- function(x,...){
 #' @rdname get_info
 #' @param simplify boolean: simplify or keep output as list
 get_info.stranger <- function(x,simplify=TRUE,...){
-
+  
   out=sapply(select(x,-.id),attributes,simplify=simplify)
   if (simplify & is.array(out)) out=t(out)
   return(out)
@@ -53,7 +53,7 @@ get_info.singular <- function(x,...){
   })
   norms <- nam[null]
   metrics <- nam[!null]
-
+  
   out=sapply(select(x,one_of(metrics)),attributes,simplify=TRUE)
   if (is.array(out)) out=t(out)
   cat("\n\n- source metrics\n\n")
